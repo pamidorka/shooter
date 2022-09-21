@@ -1,11 +1,9 @@
 
 #include "ammo.hpp"
 
-Ammo::Ammo(sf::Vector2f vector, int dmg) {
-    fly_vector = vector;
+Ammo::Ammo(sf::Vector2<double> pos, sf::Vector2f velocity, int dmg) {
+    this->velocity = velocity;
     damage = dmg;
-
-    
 
 }
 
@@ -24,5 +22,5 @@ bool Ammo::InsideMe(sf::Vector2f vertex) {
 }
 
 void Ammo::Draw(sf::RenderWindow* window) {
-    window->draw(model);
+  
 }

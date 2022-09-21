@@ -3,20 +3,20 @@
 
 #include "entity.hpp"
 
-class Ammo : public Entity {
+class Ammo {
 private:
 
-    sf::Vector2f fly_vector;
+    sf::Vector2f velocity;
     int damage;
 
 public:
 
     Ammo() = delete;
-    Ammo(sf::Vector2f vector, int dmg);
+    Ammo(sf::Vector2<double> pos, sf::Vector2f velocity, int dmg);
     ~Ammo();
 
-    void Move(sf::Vector2<double> vector, double time) override;
-    bool InsideMe(sf::Vector2f vertex) override;
-    void Draw(sf::RenderWindow* window) override;
+    void Move(sf::Vector2<double> vector, double time);
+    bool InsideMe(sf::Vector2f vertex);
+    void Draw(sf::RenderWindow* window);
 
 };

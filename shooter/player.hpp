@@ -6,6 +6,7 @@ class Player : public Entity {
 private:
 
     Gun gun;
+    sf::VertexArray model;
 
 public:
 
