@@ -28,7 +28,7 @@ Block::Block(sf::Vector2f pos, sf::Vector2f size, sf::Color color) {
 }
 
 Block::~Block() {
-    
+    // cock and balls.
 }
 
 void Block::SaveTo(std::fstream &file) {
