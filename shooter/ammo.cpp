@@ -5,8 +5,7 @@ Ammo::Ammo(sf::Vector2f vector, int dmg) {
     fly_vector = vector;
     damage = dmg;
 
-    model = sf::CircleShape(3);
-    model.setFillColor(sf::Color::Magenta);
+    
 
 }
 
@@ -14,8 +13,14 @@ Ammo::~Ammo() {
 
 }
 
-void Ammo::Move(double time) {
-    model.setPosition(sf::Vector2f(model.getPosition().x + fly_vector.x * time, model.getPosition().y + fly_vector.y * time));
+void Ammo::Move(sf::Vector2<double> vector, double time) {
+    for (unsigned int i = 0; i < 3; i++) {
+
+    }
+}
+
+bool Ammo::InsideMe(sf::Vector2f vertex) {
+    return false;
 }
 
 void Ammo::Draw(sf::RenderWindow* window) {

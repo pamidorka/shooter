@@ -1,14 +1,13 @@
 
 #include <SFML/Graphics.hpp>
 
-class Ammo {
+#include "entity.hpp"
+
+class Ammo : public Entity {
 private:
 
     sf::Vector2f fly_vector;
-    sf::CircleShape model;
     int damage;
-
-    void ResetModel();
 
 public:
 
@@ -16,7 +15,8 @@ public:
     Ammo(sf::Vector2f vector, int dmg);
     ~Ammo();
 
-    void Move(double time);
-    void Draw(sf::RenderWindow* window);
+    void Move(sf::Vector2<double> vector, double time) override;
+    bool InsideMe(sf::Vector2f vertex) override;
+    void Draw(sf::RenderWindow* window) override;
 
 };

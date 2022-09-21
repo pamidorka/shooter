@@ -12,14 +12,12 @@ protected:
     sf::Vector2<double> position;
     sf::VertexArray model;
 
-    virtual void VertexReset() = 0;
-
 public:
 
     virtual void Move(sf::Vector2<double> vector, double time) = 0;
     virtual bool InsideMe(sf::Vector2f vertex) = 0;
     virtual void Draw(sf::RenderWindow* window) = 0;
-    virtual bool GetOnGround() = 0;
+    bool GetOnGround();
 
     void ChangeHp(int delta_hp);
 

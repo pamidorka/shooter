@@ -1,6 +1,5 @@
 
 #include <SFML/Graphics.hpp>
-#include "ammo.hpp"
 
 #ifndef GUN
 #define GUN
@@ -10,7 +9,6 @@ protected:
 
     int damage;
     sf::VertexArray model;
-    std::vector<Ammo> ammo;
 
 public:
 

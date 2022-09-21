@@ -6,7 +6,6 @@ class Player : public Entity {
 private:
 
     Gun gun;
-    void VertexReset() override;
 
 public:
 
@@ -20,8 +19,6 @@ public:
     void Move(sf::Vector2<double> vector, double time) override;
     bool InsideMe(sf::Vector2f vertex) override;
     void Draw(sf::RenderWindow* window) override;
-    bool GetOnGround() override;
-
 
 };
 

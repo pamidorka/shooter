@@ -37,24 +37,11 @@ void Player::Fire(sf::Vector2f vector, double time) {
     gun.Fire(vector, time);
 }
 
-void Player::VertexReset() {
-    model[0].position.x = position.x;
-    model[0].position.y = position.y;
-
-    model[1].position.x = position.x + size.x;
-    model[1].position.y = position.y;
-
-    model[2].position.x = position.x + size.x;
-    model[2].position.y = position.y + size.y;
-
-    model[3].position.x = position.x;
-    model[3].position.y = position.y + size.y;
-}
-
 void Player::Move(sf::Vector2<double> vector, double time) {
-    position.x += vector.x * time;
-    position.y += vector.y * time;
-    VertexReset();
+    for (unsigned int i = 0; i < 4; i++) {
+        model[i].position.x += vector.x * time;
+        model[i].position.y += vector.y * time;
+    }
 }
 
 void Player::Draw(sf::RenderWindow* window) {
@@ -66,8 +53,4 @@ bool Player::InsideMe(sf::Vector2f vertex) {
         return true;
     }
     return false;
-}
-
-bool Player::GetOnGround() {
-    return on_ground;
 }
