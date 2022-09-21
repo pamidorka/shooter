@@ -15,18 +15,11 @@ MainWindow::~MainWindow() {
     delete current_window;
 }
 
-// void MainWindow::EventThread() {
-//     while(window->isOpen()) {
-//         std::unique_lock lock(mt_ev);
-//         cv_ev.wait(lock, [this]{ return ev_wait; });
-//     }
-// }
-
 void MainWindow::Start() {
-    //th_ev = std::thread(&MainWindow::EventThread, this);
 
     while(window->isOpen()) {
-        time = (double)clock.restart().asMicroseconds() / 800.0;
+        double time = clock.getElapsedTime().asMicroseconds() / 800;
+        clock.restart();
         while(window->pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window->close();
@@ -40,6 +33,4 @@ void MainWindow::Start() {
         current_window->Draw(window);
         window->display();
     }
-
-    //th_ev.join();
 }

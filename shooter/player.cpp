@@ -5,14 +5,15 @@
 
 const sf::Vector2f Player::size = sf::Vector2f(25, 100);
 
-Player::Player(sf::Vector2f pos) {
+Player::Player(sf::Vector2<double> pos) {
 
     model = sf::VertexArray(sf::PrimitiveType::Quads, 4);
     gun = MachineGun();
 
     position = pos;
 
-    model[0].position = pos;
+    model[0].position.x = pos.x;
+    model[0].position.y = pos.y;
 
     model[1].position.x = pos.x + size.x;
     model[1].position.y = pos.y;
@@ -37,7 +38,8 @@ void Player::Fire(sf::Vector2f vector, double time) {
 }
 
 void Player::VertexReset() {
-    model[0].position = position;
+    model[0].position.x = position.x;
+    model[0].position.y = position.y;
 
     model[1].position.x = position.x + size.x;
     model[1].position.y = position.y;
@@ -49,9 +51,9 @@ void Player::VertexReset() {
     model[3].position.y = position.y + size.y;
 }
 
-void Player::Move(sf::Vector2f vector, double time) {
-    position.x += vector.x * (float)time;
-    position.y += vector.y * (float)time;
+void Player::Move(sf::Vector2<double> vector, double time) {
+    position.x += vector.x * time;
+    position.y += vector.y * time;
     VertexReset();
 }
 

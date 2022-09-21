@@ -8,7 +8,7 @@ class Map : public Window {
 private:
     std::vector<Block> blocks;
     //std::vector<Enemy> enemy;
-    Player player = Player(sf::Vector2f(0.0, 100));
+    Player player = Player(sf::Vector2<double>(0.0, 100));
     sf::Vector2u screen;
 
 public:

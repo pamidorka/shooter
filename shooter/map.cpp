@@ -1,5 +1,6 @@
 
 #include <fstream>
+#include <iostream>
 
 #include "map.hpp"
 
@@ -19,10 +20,15 @@ void Map::EventListener(sf::RenderWindow* window, sf::Event event, double time) 
     switch (event.type) {
     case sf::Event::KeyPressed:
         if (event.key.code == sf::Keyboard::A) {
-            player.Move(sf::Vector2f(-30, 0), time);
+            player.Move(sf::Vector2<double>(-5.0, 0), time);
         }
         if (event.key.code == sf::Keyboard::D) {
-            player.Move(sf::Vector2f(30, 0), time);
+            player.Move(sf::Vector2<double>(5.0, 0), time);
+        }
+        break;
+    case sf::Event::MouseButtonPressed:
+        if (event.key.code == sf::Mouse::Left) {
+            
         }
         break;
     default:
