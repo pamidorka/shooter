@@ -1,5 +1,6 @@
 
 #include <SFML/Graphics.hpp>
+#include "ammo.hpp"
 
 #ifndef GUN
 #define GUN
@@ -8,15 +9,19 @@ class Gun {
 protected:
 
     int damage;
-    sf::VertexArray model;
+    double delay;
+    bool can_shoot = true;
+    sf::Clock clock;
 
 public:
 
-    Gun();
-    ~Gun();
+    Gun() = default;
+    virtual ~Gun();
 
-    void Fire(sf::Vector2f bh_vector, double time);
-    void Draw(sf::RenderWindow* window);
+    int GetDmg();
+    void Cooldown();
+    bool CanShoot();
+    void Reset();
 
 };
 

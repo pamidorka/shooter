@@ -23,6 +23,6 @@ public:
 
     void EventListener(sf::RenderWindow* window, sf::Event event, double time) override;
     void Draw(sf::RenderWindow* window) override;
-    void CollisionListener(double time) override;
+    void PermanentsEvents(sf::RenderWindow* window, double time) override;
 
 };

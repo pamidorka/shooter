@@ -30,3 +30,4 @@ void Ammo::Draw(sf::RenderWindow* window) {
     model.setPosition(position);
     window->draw(model);
 }
+

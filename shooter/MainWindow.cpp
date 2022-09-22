@@ -18,8 +18,7 @@ MainWindow::~MainWindow() {
 void MainWindow::Start() {
 
     while(window->isOpen()) {
-        double time = clock.getElapsedTime().asMicroseconds() / 800;
-        clock.restart();
+        double time = clock.restart().asMicroseconds() / 800;
         while(window->pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window->close();
@@ -28,7 +27,7 @@ void MainWindow::Start() {
                 current_window->EventListener(window, event, time);
             }
         }
-        current_window->CollisionListener(time);
+        current_window->PermanentsEvents(window, time);
         window->clear(sf::Color::White);
         current_window->Draw(window);
         window->display();

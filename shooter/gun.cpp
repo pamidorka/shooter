@@ -1,18 +1,25 @@
 
 #include "gun.hpp"
 
-Gun::Gun() {
-
-}
-
 Gun::~Gun() {
 
 }
 
-void Gun::Fire(sf::Vector2f bh_vector, double time) {
-
+int Gun::GetDmg() {
+	return damage;
 }
 
-void Gun::Draw(sf::RenderWindow* window) {
-    window->draw(model);
+void Gun::Cooldown() {
+	if (clock.getElapsedTime().asMilliseconds() >= delay) {
+		can_shoot = true;
+	}
+}
+
+bool Gun::CanShoot() {
+	return can_shoot;
+}
+
+void Gun::Reset() {
+	can_shoot = false;
+	clock.restart();
 }

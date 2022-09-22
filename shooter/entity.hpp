@@ -19,6 +19,7 @@ public:
 
     bool GetOnGround();
     void ChangeHp(int delta_hp);
+    sf::Vector2f GetPos();
 
 };
 

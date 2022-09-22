@@ -48,6 +48,9 @@
     <ClCompile Include="player.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="ak.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="player.hpp">
@@ -74,7 +77,7 @@
     <ClInclude Include="gun.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="machinegun.hpp">
+    <ClInclude Include="ak.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="MainWindow.hpp">

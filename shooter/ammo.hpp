@@ -3,6 +3,9 @@
 
 #include "entity.hpp"
 
+#ifndef AMMO
+#define AMMO
+
 class Ammo : public Entity {
 private:
 
@@ -21,3 +24,5 @@ public:
     void Draw(sf::RenderWindow* window) override;
 
 };
+
+#endif
