@@ -5,7 +5,7 @@
 
 const sf::Vector2f Player::size = sf::Vector2f(25, 100);
 
-Player::Player(sf::Vector2<double> pos) {
+Player::Player(sf::Vector2f pos) {
 
     model = sf::VertexArray(sf::PrimitiveType::Quads, 4);
     gun = MachineGun();
@@ -37,7 +37,7 @@ void Player::Fire(sf::Vector2f vector, double time) {
     gun.Fire(vector, time);
 }
 
-void Player::Move(sf::Vector2<double> vector, double time) {
+void Player::Move(sf::Vector2f vector, double time) {
     for (unsigned int i = 0; i < 4; i++) {
         model[i].position.x += vector.x * time;
         model[i].position.y += vector.y * time;

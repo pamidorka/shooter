@@ -10,10 +10,10 @@ private:
     std::vector<Block> blocks;
     //std::vector<Enemy> enemy;
     std::vector<Ammo> ammo;
-    Player player = Player(sf::Vector2<double>(0.0, 100));
+    Player player = Player(sf::Vector2f(0.0, 100));
     sf::Vector2u screen;
 
-    sf::Vector2f GetVector(sf::Vector2<double> player_pos, sf::Vector2i mouse_pos);
+    sf::Vector2f GetVector(sf::Vector2f player_pos, sf::Vector2i mouse_pos);
 
 public:
 
