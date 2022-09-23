@@ -5,11 +5,14 @@
 #include "Window.hpp"
 #include "ammo.hpp"
 
+#include <list>
+
 class Map : public Window {
 private:
     std::vector<Block> blocks;
     //std::vector<Enemy> enemy;
-    std::vector<Ammo> ammo;
+    std::list<Ammo> ammo;
+    
     Player player = Player(sf::Vector2f(0.0, 100));
     sf::Vector2u screen;
 

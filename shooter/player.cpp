@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-const sf::Vector2f Player::size = sf::Vector2f(25, 100);
+const sf::Vector2f Player::size = sf::Vector2f(50, 50);
 
 Player::Player(sf::Vector2f pos) {
 

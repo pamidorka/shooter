@@ -62,8 +62,8 @@ void Map::Draw(sf::RenderWindow* window) {
     for (std::size_t i = 0; i < blocks.size(); i++) {
         blocks[i].Draw(window);
     }
-    for (std::size_t i = 0; i < ammo.size(); i++) {
-        ammo[i].Draw(window);
+    for (auto i = ammo.begin(); i != ammo.end(); i++) {
+        i->Draw(window);
     }
     player.Draw(window);
     // for (std::size_t i = 0; i < enemy.size(); i++) {
@@ -73,14 +73,14 @@ void Map::Draw(sf::RenderWindow* window) {
 
 /*
 
-1. переписываем пули на список
+1. переписываем пули на список | ready
 2. сделать проверку на коллизии 
 
 */
 
 void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
-    for (std::size_t i = 0; i < ammo.size(); i++) {
-        ammo[i].Move(sf::Vector2f(0, 0), time);
+    for (auto i = ammo.begin(); i != ammo.end(); i++) {
+        i->Move(sf::Vector2f(0, 0), time);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
         player.Move(sf::Vector2f(-0.4, 0), time);
