@@ -52,10 +52,10 @@ sf::Vector2f Map::GetVector(sf::Vector2f player_pos, sf::Vector2i mouse_pos) {
 void Map::PlayerMoveCollision(double time) {
     for (auto i = blocks.begin(); i != blocks.end(); i++) {
         if (player.CheckCollision(*i, time)) {
+            player.ResetVelosityX();
             return;
         }
     }
-    player.Move(time);
 }
 
 void Map::EventListener(sf::RenderWindow* window, sf::Event event, double time) {
@@ -126,6 +126,7 @@ void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
         player.ResetVelosityX();
     }
     PlayerMoveCollision(time);
+    player.Move(time);
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         sf::Vector2i mouse = sf::Mouse::getPosition(*window);
         Ammo* tmp = player.Fire(GetVector(player.GetPos(), mouse));
