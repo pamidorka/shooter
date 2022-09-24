@@ -13,6 +13,7 @@ protected:
     bool on_ground;
     sf::Vector2f position;
     sf::Vector2f velocity;
+    double gravity;
 
 public:
 
@@ -21,7 +22,9 @@ public:
     virtual bool CheckCollision(Block block, double time) = 0;
 
     void ResetVelosityX();
+    void SetVelosityY(float y);
     bool GetOnGround();
+    void SetOnGround(bool value);
     void ChangeHp(int delta_hp);
     sf::Vector2f GetPos();
 

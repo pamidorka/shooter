@@ -13,6 +13,7 @@ Player::Player(sf::Vector2f pos) {
     position = pos;
     velocity.x = 0;
     velocity.y = 0;
+    gravity = 0.00098;
 
     ResetModel();
 
@@ -51,6 +52,7 @@ Ammo* Player::Fire(sf::Vector2f vector) {
 
 void Player::Move(double time) {
     position.x += velocity.x * time;
+    if (!on_ground) { velocity.y += gravity * time; } 
     position.y += velocity.y * time;
 }
 

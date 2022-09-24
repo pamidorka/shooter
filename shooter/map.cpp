@@ -58,6 +58,16 @@ void Map::PlayerMoveCollision(double time) {
     }
 }
 
+void Map::PlayerFallCollision(double time) {
+    for (auto i = blocks.begin(); i != blocks.end(); i++) {
+        if (player.CheckCollision(*i, time)) {
+            player.SetOnGround(true);
+            player.SetVelosityY(0);
+            return;
+        }
+    }
+}
+
 void Map::EventListener(sf::RenderWindow* window, sf::Event event, double time) {
 
     //if (event.type == sf::Event::MouseButtonPressed) {
@@ -118,14 +128,22 @@ void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
         player.Left();
+        PlayerMoveCollision(time);
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         player.Right();
+        PlayerMoveCollision(time);
     }
     else {
         player.ResetVelosityX();
     }
-    PlayerMoveCollision(time);
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && player.GetOnGround()) {
+        player.SetVelosityY(-0.5);
+        player.SetOnGround(false);
+    }
+    
+    PlayerFallCollision(time);
     player.Move(time);
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         sf::Vector2i mouse = sf::Mouse::getPosition(*window);

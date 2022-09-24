@@ -18,6 +18,7 @@ private:
 
     sf::Vector2f GetVector(sf::Vector2f player_pos, sf::Vector2i mouse_pos);
     void PlayerMoveCollision(double time);
+    void PlayerFallCollision(double time);
 
 public:
 
