@@ -5,7 +5,21 @@
 #include "map.hpp"
 
 Map::Map(const char* from, sf::Vector2u size) {
-
+    screen = size;
+    blocks.clear();
+    std::fstream file(from, std::ios::in | std::ios::out);
+    if (!file.is_open()) {
+        std::cout << "file not found" << std::endl;
+        return;
+    }
+    std::size_t count = 0;
+    file.read((char*)&count, sizeof(std::size_t));
+    for (std::size_t i = 0; i < count; i++) {
+        Block tmp(sf::Vector2f(0, 0), sf::Vector2f(50, 50), sf::Color::Black);
+        tmp.LoadFrom(file);
+        blocks.push_back(tmp);
+    }
+    file.close();
 }
 
 Map::Map(sf::Vector2u size) {

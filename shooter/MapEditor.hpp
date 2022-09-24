@@ -5,7 +5,7 @@
 class MapEditor : public Window {
 private:
 
-    std::vector<Block> blocks;
+    std::list<Block> blocks;
     
     void SetBlock(sf::Vector2i where);
     int InBlock(sf::Vector2i where);
@@ -21,6 +21,7 @@ public:
     void Load(const char* file_name);
 
     void EventListener(sf::RenderWindow* window, sf::Event event, double time) override; 
+    void PermanentsEvents(sf::RenderWindow* window, double time);
     void Draw(sf::RenderWindow* window) override;
 
 };

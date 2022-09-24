@@ -6,7 +6,7 @@
 MainWindow::MainWindow(const char* name, unsigned int width, unsigned int height) {
 
     window = new sf::RenderWindow(sf::VideoMode(width, height), name, sf::Style::Close);
-    current_window = new Map(sf::Vector2u(width, height));
+    current_window = new Map("./asd.asd", sf::Vector2u(800, 600));
 
 }
 

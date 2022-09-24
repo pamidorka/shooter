@@ -12,22 +12,26 @@ MapEditor::~MapEditor() {
 }
 
 int MapEditor::InBlock(sf::Vector2i where) {
-    for(size_t i = 0; i < blocks.size(); i++) {
-        if ((blocks[i].InBlock(sf::Vector2f(where.x, where.y)))) {
-            return i + 1;
+    unsigned int k = 0;
+    for (auto i = blocks.begin(); i != blocks.end(); i++) {
+        if ((i->InBlock(sf::Vector2f(where.x, where.y)))) {
+            return k + 1;
         }
+        k++;
     }
     return 0;
 }
 
 int MapEditor::InOtherBlock(sf::Vector2i where) {
     Block tmp(sf::Vector2f(where.x - 25, where.y - 25), sf::Vector2f(50, 50), sf::Color::Black);
-    for (size_t i = 0; i < blocks.size(); i++) {
+    unsigned int k = 0;
+    for (auto i = blocks.begin(); i != blocks.end(); i++) {
         for (size_t j = 0; j < tmp.GetBody().getVertexCount(); j++) {
-            if (blocks[i].InBlock(sf::Vector2f(tmp.GetBody()[j].position.x, tmp.GetBody()[j].position.y))) {
-                return i + 1;
+            if (i->InBlock(sf::Vector2f(tmp.GetBody()[j].position.x, tmp.GetBody()[j].position.y))) {
+                return k + 1;
             }
         }
+        k++;
     }
     return 0;
 }
@@ -54,9 +58,13 @@ void MapEditor::EventListener(sf::RenderWindow* window, sf::Event event, double 
     }
 }
 
+void MapEditor::PermanentsEvents(sf::RenderWindow* window, double time) {
+
+}
+
 void MapEditor::Draw(sf::RenderWindow* window) {
-    for (size_t i = 0; i < blocks.size(); i++) {
-        blocks[i].Draw(window);
+    for (auto i = blocks.begin(); i != blocks.end(); i++) {
+        i->Draw(window);
     }
 }
 
@@ -68,8 +76,8 @@ void MapEditor::Save(const char* file_name) {
     }
     std::size_t count = blocks.size();
     file.write((char*)&count, sizeof(std::size_t));
-    for (std::size_t i = 0; i < count; i++) {
-        blocks[i].SaveTo(file);
+    for (auto i = blocks.begin(); i != blocks.end(); i++) {
+        i->SaveTo(file);
     }
     file.close();
 }
