@@ -19,9 +19,12 @@ public:
 
     Ammo* Fire(sf::Vector2f vector);
     
-    void Move(sf::Vector2f vector, double time) override;
-    bool InsideMe(sf::Vector2f vertex) override;
+    void Move(double time) override;
+    void Left();
+    void Right();
+
     void Draw(sf::RenderWindow* window) override;
+    bool CheckCollision(Block block, double time) override;
 
 };
 

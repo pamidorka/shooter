@@ -11,6 +11,8 @@ Player::Player(sf::Vector2f pos) {
     gun = AK();
 
     position = pos;
+    velocity.x = 0;
+    velocity.y = 0;
 
     ResetModel();
 
@@ -47,9 +49,17 @@ Ammo* Player::Fire(sf::Vector2f vector) {
     return new Ammo(position, vector, gun.GetDmg());
 }
 
-void Player::Move(sf::Vector2f vector, double time) {
-    position.x += vector.x * time;
-    position.y += vector.y * time;
+void Player::Move(double time) {
+    position.x += velocity.x * time;
+    position.y += velocity.y * time;
+}
+
+void Player::Left() {
+    velocity.x = -0.4;
+}
+
+void Player::Right() {
+    velocity.x = 0.4;
 }
 
 void Player::Draw(sf::RenderWindow* window) {
@@ -57,9 +67,9 @@ void Player::Draw(sf::RenderWindow* window) {
     window->draw(model);
 }
 
-bool Player::InsideMe(sf::Vector2f vertex) {
-    if ((position.x + size.x >= vertex.x) && (position.y + size.y >= vertex.y) && (vertex.x >= position.x) && (vertex.y >= position.y)) {
-        return true;
-    }
-    return false;
+bool Player::CheckCollision(Block block, double time) {
+    sf::FloatRect tmp = model.getBounds();
+    tmp.left += velocity.x * time;
+    tmp.top += velocity.y * time;
+    return block.GetBody().getBounds().intersects(tmp);
 }

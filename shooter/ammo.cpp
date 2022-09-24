@@ -17,17 +17,17 @@ Ammo::~Ammo() {
 
 }
 
-void Ammo::Move(sf::Vector2f vector, double time) {
+void Ammo::Move(double time) {
     position.x += velocity.x * time;
     position.y += velocity.y * time;
-}
-
-bool Ammo::InsideMe(sf::Vector2f vertex) {
-    return false;
 }
 
 void Ammo::Draw(sf::RenderWindow* window) {
     model.setPosition(position);
     window->draw(model);
+}
+
+bool Ammo::CheckCollision(Block block, double time) {
+    return false;
 }
 
