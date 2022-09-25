@@ -3,7 +3,7 @@
 
 AK::AK() {
 	damage = 3;
-	delay = 0.0;
+	delay = 150.0;
 }
 
 AK::~AK() {

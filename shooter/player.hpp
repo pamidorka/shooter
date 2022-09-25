@@ -19,7 +19,6 @@ public:
 
     Ammo* Fire(sf::Vector2f vector);
     
-    void Move(double time) override;
     void Left();
     void Right();
 

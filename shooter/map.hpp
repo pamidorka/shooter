@@ -9,16 +9,18 @@
 
 class Map : public Window {
 private:
+
     std::list<Block> blocks;
-    //std::vector<Enemy> enemy;
+    std::list<Enemy> enemy;
     std::list<Ammo> ammo;
     
     Player player = Player(sf::Vector2f(100, Player::size.y));
     sf::Vector2u screen;
 
     sf::Vector2f GetVector(sf::Vector2f player_pos, sf::Vector2i mouse_pos);
-    void PlayerMoveCollision(double time);
-    void PlayerFallCollision(double time);
+    void MoveCollision(Entity& entity, double time);
+    void FallCollision(Entity& entity, double time);
+    void EnemyHandler(double time);
 
 public:
 

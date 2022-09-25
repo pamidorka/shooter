@@ -24,6 +24,9 @@ Map::Map(const char* from, sf::Vector2u size) {
         blocks.push_back(tmp);
     }
     file.close();
+
+    enemy.push_back(RedEnemy(sf::Vector2f(600, 50)));
+    enemy.push_back(RedEnemy(sf::Vector2f(400, 50)));
 }
 
 Map::Map(sf::Vector2u size) {
@@ -49,48 +52,34 @@ sf::Vector2f Map::GetVector(sf::Vector2f player_pos, sf::Vector2i mouse_pos) {
     return dir;
 }
 
-void Map::PlayerMoveCollision(double time) {
+void Map::MoveCollision(Entity &entity, double time) {
     for (auto i = blocks.begin(); i != blocks.end(); i++) {
-        if (player.CheckCollisionX(*i, time)) {
-            player.ResetVelosityX();
+        if (entity.CheckCollisionX(*i, time)) {
+            entity.ResetVelosityX();
             return;
         }
     }
 }
 
-void Map::PlayerFallCollision(double time) {
+void Map::FallCollision(Entity &entity, double time) {
     for (auto i = blocks.begin(); i != blocks.end(); i++) {
-        if (player.CheckCollisionY(*i, time)) {
-            if (player.GetVelocity().y > 0) {
-                player.SetOnGround(true);
+        if (entity.CheckCollisionY(*i, time)) {
+            if (entity.GetVelocity().y > 0) {
+                entity.SetOnGround(true);
             }
-            player.SetVelosityY(0);
+            entity.SetVelosityY(0);
             return;
         }
     }
-    player.SetOnGround(false);
+    entity.SetOnGround(false);
+}
+
+void Map::EnemyHandler(double time) {
+
 }
 
 void Map::EventListener(sf::RenderWindow* window, sf::Event event, double time) {
 
-    //if (event.type == sf::Event::MouseButtonPressed) {
-    //    if (event.key.code == sf::Mouse::Left) {
-    //        //sf::Vector2i mouse = sf::Mouse::getPosition(*window);
-    //        ammo.push_back(Ammo(sf::Vector2f(0, 0), sf::Vector2f(0.3, 0.3), 1));
-    //    }
-    //}
-    /*switch (event.type) {
-    case sf::Event::KeyPressed:
-        if (event.key.code == sf::Keyboard::A) {
-            player.Left();
-        }
-        else if (event.key.code == sf::Keyboard::D) {
-            player.Right();
-        }
-        break;
-    default:
-        break;
-    }*/
 }
 
 void Map::Draw(sf::RenderWindow* window) {
@@ -101,18 +90,10 @@ void Map::Draw(sf::RenderWindow* window) {
         i->Draw(window);
     }
     player.Draw(window);
-    // for (std::size_t i = 0; i < enemy.size(); i++) {
-    //     enemy[i].Draw(window);
-    // }
+    for (auto i = enemy.begin(); i != enemy.end(); i++) {
+        i->Draw(window);
+    }
 }
-
-/*
-
-1. переписываем пули на список | ready
-2. сделать проверку на коллизии 
-2.1 гравитация | ready
-
-*/
 
 void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
     for (auto i = ammo.begin(); i != ammo.end(); i++) {
@@ -129,25 +110,54 @@ void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
             }
         }
     }
+    for (auto j = ammo.begin(); j != ammo.end();) { // пофиксить
+        if (enemy.size() <= 0) break;
+        for (auto i = enemy.begin(); i != enemy.end();) {
+            if (i->InEnemy(*j)) {
+                i->ChangeHp(-(j->GetDamage()));
+                if (i->GetHp() <= 0) {
+                    i = enemy.erase(i);
+                }
+                else {
+                    i++;
+                }
+                j = ammo.erase(j);
+            }
+            else {
+                j++;
+                i++;
+            }
+        }
+    }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
         player.Left();
-        PlayerMoveCollision(time);
+        MoveCollision(player, time);
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         player.Right();
-        PlayerMoveCollision(time);
+        MoveCollision(player, time);
     }
     else {
         player.ResetVelosityX();
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && player.GetOnGround()) {
-        player.SetVelosityY(-0.5);
+        player.SetVelosityY(-0.6);
         player.SetOnGround(false);
     }
     
-    PlayerFallCollision(time);
+    FallCollision(player, time);
+
     player.Move(time);
+
+    for (auto i = enemy.begin(); i != enemy.end(); i++) {
+        FallCollision(*i, time);
+    }
+
+    for (auto i = enemy.begin(); i != enemy.end(); i++) {
+        i->Move(time);
+    }
+
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         sf::Vector2i mouse = sf::Mouse::getPosition(*window);
         Ammo* tmp = player.Fire(GetVector(player.GetPos(), mouse));
@@ -156,8 +166,4 @@ void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
             delete tmp;
         }
     }
-    /* if (!player.GetOnGround()) {
-         player.Move(sf::Vector2f(0, 9.8), time);
-     }*/
-
 }

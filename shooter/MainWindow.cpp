@@ -20,6 +20,7 @@ void MainWindow::Start() {
 
     while(window->isOpen()) {
         double time = clock.restart().asMicroseconds() / 800;
+        if (time > 50.0) { continue; }
         while(window->pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window->close();
