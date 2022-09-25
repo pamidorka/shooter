@@ -13,6 +13,10 @@ void Entity::SetVelosityY(float y) {
     velocity.y = y;
 }
 
+sf::Vector2f Entity::GetVelocity() {
+    return velocity;
+}
+
 bool Entity::GetOnGround() {
     return on_ground;
 }

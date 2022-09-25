@@ -13,7 +13,7 @@ private:
     //std::vector<Enemy> enemy;
     std::list<Ammo> ammo;
     
-    Player player = Player(sf::Vector2f(100, 100));
+    Player player = Player(sf::Vector2f(100, Player::size.y));
     sf::Vector2u screen;
 
     sf::Vector2f GetVector(sf::Vector2f player_pos, sf::Vector2i mouse_pos);

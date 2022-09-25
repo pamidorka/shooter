@@ -7,6 +7,10 @@
 Map::Map(const char* from, sf::Vector2u size) {
     screen = size;
     blocks.clear();
+    blocks.push_back(Block(sf::Vector2f(-50, 0), sf::Vector2f(50, screen.y)));
+    blocks.push_back(Block(sf::Vector2f(0, screen.y), sf::Vector2f(screen.x, 50)));
+    blocks.push_back(Block(sf::Vector2f(screen.x, 0), sf::Vector2f(50, screen.y)));
+    blocks.push_back(Block(sf::Vector2f(0, -50), sf::Vector2f(screen.x, 50)));
     std::fstream file(from, std::ios::in | std::ios::out);
     if (!file.is_open()) {
         std::cout << "file not found" << std::endl;
@@ -24,10 +28,6 @@ Map::Map(const char* from, sf::Vector2u size) {
 
 Map::Map(sf::Vector2u size) {
     screen = size;
-
-    blocks.push_back(Block(sf::Vector2f(size.x / 2, size.y / 2), sf::Vector2f(50, 50)));
-    blocks.push_back(Block(sf::Vector2f(size.x / 2 - 150, size.y / 2), sf::Vector2f(50, 50)));
-    blocks.push_back(Block(sf::Vector2f(500, 100), sf::Vector2f(50, 50)));
 
 }
 
@@ -51,7 +51,7 @@ sf::Vector2f Map::GetVector(sf::Vector2f player_pos, sf::Vector2i mouse_pos) {
 
 void Map::PlayerMoveCollision(double time) {
     for (auto i = blocks.begin(); i != blocks.end(); i++) {
-        if (player.CheckCollision(*i, time)) {
+        if (player.CheckCollisionX(*i, time)) {
             player.ResetVelosityX();
             return;
         }
@@ -60,12 +60,15 @@ void Map::PlayerMoveCollision(double time) {
 
 void Map::PlayerFallCollision(double time) {
     for (auto i = blocks.begin(); i != blocks.end(); i++) {
-        if (player.CheckCollision(*i, time)) {
-            player.SetOnGround(true);
+        if (player.CheckCollisionY(*i, time)) {
+            if (player.GetVelocity().y > 0) {
+                player.SetOnGround(true);
+            }
             player.SetVelosityY(0);
             return;
         }
     }
+    player.SetOnGround(false);
 }
 
 void Map::EventListener(sf::RenderWindow* window, sf::Event event, double time) {
@@ -107,7 +110,7 @@ void Map::Draw(sf::RenderWindow* window) {
 
 1. переписываем пули на список | ready
 2. сделать проверку на коллизии 
-2.1 гравитация
+2.1 гравитация | ready
 
 */
 

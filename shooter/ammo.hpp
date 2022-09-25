@@ -20,7 +20,8 @@ public:
 
     void Move(double time) override;
     void Draw(sf::RenderWindow* window) override;
-    bool CheckCollision(Block block, double time) override;
+    bool CheckCollisionX(Block block, double time) override;
+    bool CheckCollisionY(Block block, double time) override;
 
 };
 

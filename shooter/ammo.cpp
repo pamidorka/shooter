@@ -9,7 +9,7 @@ Ammo::Ammo(sf::Vector2f pos, sf::Vector2f velocity, int dmg) {
 
     model = sf::CircleShape(5.0);
     model.setPosition(pos);
-    model.setFillColor(sf::Color::Magenta);
+    model.setFillColor(sf::Color(70, 40, 31));
 
 }
 
@@ -27,7 +27,11 @@ void Ammo::Draw(sf::RenderWindow* window) {
     window->draw(model);
 }
 
-bool Ammo::CheckCollision(Block block, double time) {
+bool Ammo::CheckCollisionX(Block block, double time) {
+    return false;
+}
+
+bool Ammo::CheckCollisionY(Block block, double time) {
     return false;
 }
 
