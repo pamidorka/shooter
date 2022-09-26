@@ -5,11 +5,11 @@ Ammo::Ammo(sf::Vector2f pos, sf::Vector2f velocity, int dmg) {
     this->velocity = velocity;
     damage = dmg;
     on_ground = false;
-    gravity = 0.0004;
+    gravity = 0.0007;
 
     position = pos;
 
-    model = sf::CircleShape(5.0);
+    model = sf::CircleShape(3.0);
     model.setPosition(pos);
     model.setFillColor(sf::Color(70, 40, 31));
 

@@ -13,7 +13,7 @@ Player::Player(sf::Vector2f pos) {
     position = pos;
     velocity.x = 0;
     velocity.y = 0;
-    gravity = 0.00098;
+    gravity = 0.002;
 
     ResetModel();
 

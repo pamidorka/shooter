@@ -20,7 +20,7 @@ private:
     sf::Vector2f GetVector(sf::Vector2f player_pos, sf::Vector2i mouse_pos);
     void MoveCollision(Entity& entity, double time);
     void FallCollision(Entity& entity, double time);
-    void EnemyHandler(double time);
+    void EnemyHandlerAI(double time);
 
 public:
 

@@ -25,8 +25,10 @@ Map::Map(const char* from, sf::Vector2u size) {
     }
     file.close();
 
+    enemy.push_back(RedEnemy(sf::Vector2f(700, 50)));
     enemy.push_back(RedEnemy(sf::Vector2f(600, 50)));
-    enemy.push_back(RedEnemy(sf::Vector2f(400, 50)));
+    enemy.push_back(RedEnemy(sf::Vector2f(500, 50)));
+
 }
 
 Map::Map(sf::Vector2u size) {
@@ -74,7 +76,7 @@ void Map::FallCollision(Entity &entity, double time) {
     entity.SetOnGround(false);
 }
 
-void Map::EnemyHandler(double time) {
+void Map::EnemyHandlerAI(double time) {
 
 }
 
@@ -110,25 +112,28 @@ void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
             }
         }
     }
-    for (auto j = ammo.begin(); j != ammo.end();) { // пофиксить
+
+    for (auto j = ammo.begin(); j != ammo.end();) {
         if (enemy.size() <= 0) break;
-        for (auto i = enemy.begin(); i != enemy.end();) {
+        bool enemy_hit = false;
+        for (auto i = enemy.begin(); i != enemy.end(); i++) {
             if (i->InEnemy(*j)) {
                 i->ChangeHp(-(j->GetDamage()));
                 if (i->GetHp() <= 0) {
-                    i = enemy.erase(i);
+                    enemy.erase(i);
                 }
-                else {
-                    i++;
-                }
-                j = ammo.erase(j);
-            }
-            else {
-                j++;
-                i++;
+                enemy_hit = true;
+                break;
             }
         }
+        if (enemy_hit) {
+            j = ammo.erase(j);
+        }
+        else {
+            j++;
+        }
     }
+   
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
         player.Left();
         MoveCollision(player, time);
@@ -142,7 +147,7 @@ void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && player.GetOnGround()) {
-        player.SetVelosityY(-0.6);
+        player.SetVelosityY(-0.8);
         player.SetOnGround(false);
     }
     
