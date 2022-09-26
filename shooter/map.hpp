@@ -4,11 +4,14 @@
 #include "block.hpp"
 #include "Window.hpp"
 #include "ammo.hpp"
+#include "hud.hpp"
 
 #include <list>
 
 class Map : public Window {
 private:
+
+    HUD hud;
 
     std::list<Block> blocks;
     std::list<Enemy> enemy;

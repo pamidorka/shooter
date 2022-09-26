@@ -1,7 +1,11 @@
 
 #include "entity.hpp"
 #include "ak.hpp"
- 
+
+
+#ifndef PLAYER
+#define PLAYER
+
 class Player : public Entity {
 private:
 
@@ -24,4 +28,6 @@ public:
     bool CheckCollisionY(Block block, double time) override;
 
 };
+
+#endif
 

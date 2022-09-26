@@ -29,6 +29,7 @@ Map::Map(const char* from, sf::Vector2u size) {
     enemy.push_back(RedEnemy(sf::Vector2f(600, 50)));
     enemy.push_back(RedEnemy(sf::Vector2f(500, 50)));
 
+    hud = HUD(player, sf::Vector2f(50, screen.y - 100));
 }
 
 Map::Map(sf::Vector2u size) {
@@ -108,6 +109,7 @@ void Map::Draw(sf::RenderWindow* window) {
     for (auto i = enemy.begin(); i != enemy.end(); i++) {
         i->Draw(window);
     }
+    hud.Draw(window);
 }
 
 void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
@@ -131,6 +133,7 @@ void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
         for (auto i = enemy.begin(); i != enemy.end(); i++) {
             if (i->InEnemy(*j)) {
                 i->ChangeHp(-(j->GetDamage()));
+                hud.Update();
                 if (i->GetHp() <= 0) {
                     enemy.erase(i);
                 }

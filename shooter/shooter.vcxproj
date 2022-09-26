@@ -150,6 +150,7 @@
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="factory.cpp" />
     <ClCompile Include="gun.cpp" />
+    <ClCompile Include="hud.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="map.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="factory.hpp" />
     <ClInclude Include="gun.hpp" />
     <ClInclude Include="ak.hpp" />
+    <ClInclude Include="hud.hpp" />
     <ClInclude Include="MainWindow.hpp" />
     <ClInclude Include="map.hpp" />
     <ClInclude Include="MapEditor.hpp" />
