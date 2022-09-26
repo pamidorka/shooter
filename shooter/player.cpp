@@ -50,14 +50,6 @@ Ammo* Player::Fire(sf::Vector2f vector) {
     return new Ammo(position, vector, gun.GetDmg());
 }
 
-void Player::Left() {
-    velocity.x = -0.4;
-}
-
-void Player::Right() {
-    velocity.x = 0.4;
-}
-
 void Player::Draw(sf::RenderWindow* window) {
     ResetModel();
     window->draw(model);

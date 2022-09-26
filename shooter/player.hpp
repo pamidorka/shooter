@@ -18,9 +18,6 @@ public:
     ~Player();
 
     Ammo* Fire(sf::Vector2f vector);
-    
-    void Left();
-    void Right();
 
     void Draw(sf::RenderWindow* window) override;
     bool CheckCollisionX(Block block, double time) override;

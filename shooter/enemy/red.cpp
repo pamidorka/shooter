@@ -9,7 +9,7 @@ RedEnemy::RedEnemy(sf::Vector2f pos) {
 
 	model.setFillColor(sf::Color::Red);
 	model.setPosition(position);
-	gravity = 0.0007;
+	gravity = 0.001;
 	on_ground = false;
 
 	damage = 5;

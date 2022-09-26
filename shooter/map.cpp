@@ -57,7 +57,7 @@ sf::Vector2f Map::GetVector(sf::Vector2f player_pos, sf::Vector2i mouse_pos) {
 void Map::MoveCollision(Entity &entity, double time) {
     for (auto i = blocks.begin(); i != blocks.end(); i++) {
         if (entity.CheckCollisionX(*i, time)) {
-            entity.ResetVelosityX();
+            entity.SetVelosityX(0);
             return;
         }
     }
@@ -77,7 +77,20 @@ void Map::FallCollision(Entity &entity, double time) {
 }
 
 void Map::EnemyHandlerAI(double time) {
-
+    for (auto i = enemy.begin(); i != enemy.end(); i++) {
+        if (i->GetPos().x < player.GetPos().x) {
+            i->SetVelosityX(0.2);
+        }
+        else {
+            i->SetVelosityX(-0.2);
+        }
+        for (auto j = blocks.begin(); j != blocks.end(); j++) {
+            if (i->CheckCollisionX(*j, time)) {
+                i->Jump(-0.5);
+                i->SetVelosityX(0);
+            }
+        }
+    }
 }
 
 void Map::EventListener(sf::RenderWindow* window, sf::Event event, double time) {
@@ -114,7 +127,6 @@ void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
     }
 
     for (auto j = ammo.begin(); j != ammo.end();) {
-        if (enemy.size() <= 0) break;
         bool enemy_hit = false;
         for (auto i = enemy.begin(); i != enemy.end(); i++) {
             if (i->InEnemy(*j)) {
@@ -135,20 +147,19 @@ void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
     }
    
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        player.Left();
+        player.SetVelosityX(-0.4);
         MoveCollision(player, time);
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        player.Right();
+        player.SetVelosityX(0.4);
         MoveCollision(player, time);
     }
     else {
-        player.ResetVelosityX();
+        player.SetVelosityX(0);
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && player.GetOnGround()) {
-        player.SetVelosityY(-0.8);
-        player.SetOnGround(false);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+        player.Jump(-0.8);
     }
     
     FallCollision(player, time);
@@ -158,6 +169,8 @@ void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
     for (auto i = enemy.begin(); i != enemy.end(); i++) {
         FallCollision(*i, time);
     }
+
+    EnemyHandlerAI(time);
 
     for (auto i = enemy.begin(); i != enemy.end(); i++) {
         i->Move(time);

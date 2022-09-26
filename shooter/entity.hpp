@@ -22,7 +22,8 @@ public:
     virtual bool CheckCollisionY(Block block, double time) = 0;
 
     void Move(double time);
-    void ResetVelosityX();
+    void Jump(float y);
+    void SetVelosityX(float x);
     void SetVelosityY(float y);
     sf::Vector2f GetVelocity();
     bool GetOnGround();

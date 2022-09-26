@@ -5,8 +5,8 @@ void Entity::ChangeHp(int delta_hp) {
     hp += delta_hp;
 }
 
-void Entity::ResetVelosityX() {
-    velocity.x = 0;
+void Entity::SetVelosityX(float x) {
+    velocity.x = x;
 }
 
 void Entity::SetVelosityY(float y) {
@@ -29,6 +29,13 @@ void Entity::Move(double time) {
     position.x += velocity.x * time;
     if (!on_ground) { velocity.y += gravity * time; }
     position.y += velocity.y * time;
+}
+
+void Entity::Jump(float y) {
+    if (on_ground) {
+        velocity.y = y;
+        on_ground = false;
+    }
 }
 
 sf::Vector2f Entity::GetPos() {
