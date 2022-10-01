@@ -14,6 +14,7 @@ Player::Player(sf::Vector2f pos) {
     velocity.x = 0;
     velocity.y = 0;
     gravity = 0.002;
+    hp = 50;
 
     ResetModel();
 
@@ -48,6 +49,10 @@ Ammo* Player::Fire(sf::Vector2f vector) {
     }
     gun.Reset();
     return new Ammo(position, vector, gun.GetDmg());
+}
+
+bool Player::EnemyInside(Enemy& enemy) {
+    return enemy.GetModel().getGlobalBounds().intersects(model.getBounds());
 }
 
 void Player::Draw(sf::RenderWindow* window) {

@@ -11,7 +11,7 @@ Ammo::Ammo(sf::Vector2f pos, sf::Vector2f velocity, int dmg) {
 
     model = sf::CircleShape(3.0);
     model.setPosition(pos);
-    model.setFillColor(sf::Color(70, 40, 31));
+    model.setFillColor(sf::Color::Blue);
 
 }
 

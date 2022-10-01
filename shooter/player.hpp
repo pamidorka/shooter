@@ -1,6 +1,7 @@
 
 #include "entity.hpp"
 #include "ak.hpp"
+#include "enemy.hpp"
 
 
 #ifndef PLAYER
@@ -22,6 +23,7 @@ public:
     ~Player();
 
     Ammo* Fire(sf::Vector2f vector);
+    bool EnemyInside(Enemy& enemy);
 
     void Draw(sf::RenderWindow* window) override;
     bool CheckCollisionX(Block block, double time) override;

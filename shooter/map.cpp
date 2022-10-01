@@ -26,8 +26,8 @@ Map::Map(const char* from, sf::Vector2u size) {
     file.close();
 
     enemy.push_back(RedEnemy(sf::Vector2f(700, 50)));
-    enemy.push_back(RedEnemy(sf::Vector2f(600, 50)));
-    enemy.push_back(RedEnemy(sf::Vector2f(500, 50)));
+    //enemy.push_back(RedEnemy(sf::Vector2f(600, 50)));
+    //enemy.push_back(RedEnemy(sf::Vector2f(500, 50)));
 
     hud = HUD(player, sf::Vector2f(50, screen.y - 100));
 }
@@ -133,7 +133,6 @@ void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
         for (auto i = enemy.begin(); i != enemy.end(); i++) {
             if (i->InEnemy(*j)) {
                 i->ChangeHp(-(j->GetDamage()));
-                hud.Update();
                 if (i->GetHp() <= 0) {
                     enemy.erase(i);
                 }
@@ -177,6 +176,13 @@ void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
 
     for (auto i = enemy.begin(); i != enemy.end(); i++) {
         i->Move(time);
+        if (player.EnemyInside(*i)) {
+            player.ChangeHp(-(i->GetDamage()));
+           /*if (player.GetHp() <= 0) {
+                exit(EXIT_SUCCESS);
+            }*/
+            hud.Update();
+        }
     }
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {

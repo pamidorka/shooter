@@ -5,6 +5,14 @@ bool Enemy::InEnemy(Ammo bullet) {
     return model.getGlobalBounds().intersects(bullet.GetModel().getGlobalBounds());
 }
 
+sf::RectangleShape Enemy::GetModel() {
+    return model;
+}
+
+int Enemy::GetDamage() {
+    return damage;
+}
+
 void Enemy::Draw(sf::RenderWindow* window) {
     model.setPosition(position);
 	window->draw(model);

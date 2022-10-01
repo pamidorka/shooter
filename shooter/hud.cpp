@@ -1,3 +1,4 @@
+
 #include "hud.hpp"
 
 #include <iostream>
@@ -35,6 +36,7 @@ void HUD::Update() {
 }
 
 void HUD::Draw(sf::RenderWindow* window) {
-	window->draw(gun_text);
-	window->draw(hp_text);
+	//std::cout << hp_count << " " << gun_name << std::endl;
+	/*window->draw(gun_text);
+	window->draw(hp_text);*/
 }
