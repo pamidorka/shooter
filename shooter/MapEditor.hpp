@@ -6,15 +6,16 @@ class MapEditor : public Window {
 private:
 
     std::list<Block> blocks;
+    Block curs_model;
     
     void SetBlock(sf::Vector2i where);
-    int InBlock(sf::Vector2i where);
     int InOtherBlock(sf::Vector2i where);
+    sf::Vector2i SnapToGrid(sf::Vector2i pos);
     void MoveBlock(sf::Vector2i where);
 
 public:
 
-    MapEditor();
+    MapEditor(sf::Vector2u screen);
     ~MapEditor() override;
 
     void Save(const char* file_name);
