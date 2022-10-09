@@ -75,15 +75,14 @@ void MapEditor::PermanentsEvents(sf::RenderWindow* window, double time) {
         }
     }
 
-    if (InOtherBlock(mouse_pos)) {
+    if (InOtherBlock(SnapToGrid(mouse_pos))) {
         curs_model.SetColor(sf::Color(0, 0, 0, 0));
     } 
     else {
         curs_model.SetColor(sf::Color(190, 190, 190, 255));
     }
 
-    sf::Vector2f tmp_pos(SnapToGrid(sf::Vector2i(mouse_pos.x - curs_model.GetSize().x / 2, mouse_pos.y - curs_model.GetSize().y / 2)));
-    curs_model.SetPosition(tmp_pos);
+    curs_model.SetPosition(sf::Vector2f(SnapToGrid(sf::Vector2i(mouse_pos.x - curs_model.GetSize().x / 2, mouse_pos.y - curs_model.GetSize().y / 2))));
 
 }
 

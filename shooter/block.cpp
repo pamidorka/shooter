@@ -80,10 +80,11 @@ sf::VertexArray Block::GetBody() {
 }
 
 bool Block::InBlock(sf::Vector2f where) {
-    if ((position.x + bl_size.x > where.x) && (position.y + bl_size.y > where.y) && (where.x > position.x) && (where.y > position.y)) {
+    if ((position.x + bl_size.x >= where.x) && (position.y + bl_size.y >= where.y) && (where.x >= position.x) && (where.y >= position.y)) {
         return true;
     }
     return false;
+    //return vrt.getBounds().intersects(sf::FloatRect(sf::Vector2f(where.x, where.y), bl_size));
 }
 
 void Block::Draw(sf::RenderWindow* window) {

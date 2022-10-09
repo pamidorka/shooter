@@ -4,7 +4,7 @@
 
 #include "map.hpp"
 
-Map::Map(const char* from, sf::Vector2u size) {
+Map::Map(const char* from, sf::Vector2u size) /*: hud(sf::Vector2f(50, screen.y - 200))*/ {
     screen = size;
     blocks.clear();
     blocks.push_back(Block(sf::Vector2f(-50, 0), sf::Vector2f(50, screen.y)));
@@ -28,11 +28,10 @@ Map::Map(const char* from, sf::Vector2u size) {
     enemy.push_back(RedEnemy(sf::Vector2f(700, 50)));
     //enemy.push_back(RedEnemy(sf::Vector2f(600, 50)));
     //enemy.push_back(RedEnemy(sf::Vector2f(500, 50)));
-
-    hud = HUD(player, sf::Vector2f(50, screen.y - 100));
+    //hud.Update(player);
 }
 
-Map::Map(sf::Vector2u size) {
+Map::Map(sf::Vector2u size) /*: hud(sf::Vector2f(50, screen.y - 100))*/ {
     screen = size;
 
 }
@@ -99,6 +98,7 @@ void Map::EventListener(sf::RenderWindow* window, sf::Event event, double time) 
 }
 
 void Map::Draw(sf::RenderWindow* window) {
+    //hud.Draw(window);
     for (auto i = ammo.begin(); i != ammo.end(); i++) {
         i->Draw(window);
     }
@@ -109,7 +109,6 @@ void Map::Draw(sf::RenderWindow* window) {
     for (auto i = enemy.begin(); i != enemy.end(); i++) {
         i->Draw(window);
     }
-    hud.Draw(window);
 }
 
 void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
@@ -181,7 +180,7 @@ void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
            /*if (player.GetHp() <= 0) {
                 exit(EXIT_SUCCESS);
             }*/
-            hud.Update();
+            //hud.Update(player);
         }
     }
 

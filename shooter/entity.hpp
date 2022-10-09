@@ -25,12 +25,12 @@ public:
     void Jump(float y);
     void SetVelosityX(float x);
     void SetVelosityY(float y);
-    sf::Vector2f GetVelocity();
-    bool GetOnGround();
+    sf::Vector2f GetVelocity() const;
+    bool GetOnGround() const;
     void SetOnGround(bool value);
     void ChangeHp(int delta_hp);
-    sf::Vector2f GetPos();
-    int GetHp();
+    sf::Vector2f GetPos() const;
+    int GetHp() const;
 
 };
 

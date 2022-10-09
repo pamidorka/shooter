@@ -14,14 +14,12 @@ private:
 	sf::Text gun_text;
 	sf::Text hp_text;
 
-	Player* player;
 
 public:
 	
-	HUD();
-	HUD(Player& player, sf::Vector2f pos);
+	HUD(sf::Vector2f pos);
 
-	void Update();
+	void Update(const Player& player);
 	void Draw(sf::RenderWindow* window);
 
 };

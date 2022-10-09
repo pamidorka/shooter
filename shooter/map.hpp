@@ -11,7 +11,7 @@
 class Map : public Window {
 private:
 
-    HUD hud;
+    //HUD hud;
 
     std::list<Block> blocks;
     std::list<Enemy> enemy;

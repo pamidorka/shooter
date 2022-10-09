@@ -13,11 +13,11 @@ void Entity::SetVelosityY(float y) {
     velocity.y = y;
 }
 
-sf::Vector2f Entity::GetVelocity() {
+sf::Vector2f Entity::GetVelocity() const {
     return velocity;
 }
 
-bool Entity::GetOnGround() {
+bool Entity::GetOnGround() const {
     return on_ground;
 }
 
@@ -38,10 +38,10 @@ void Entity::Jump(float y) {
     }
 }
 
-sf::Vector2f Entity::GetPos() {
+sf::Vector2f Entity::GetPos() const {
     return position;
 }
 
-int Entity::GetHp() {
+int Entity::GetHp() const {
     return hp;
 }
