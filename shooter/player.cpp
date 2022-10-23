@@ -64,6 +64,7 @@ bool Player::CheckCollisionX(Block block, double time) {
     sf::FloatRect tmp = model.getBounds();
     tmp.left += velocity.x * time;
     tmp.top -= 0.1;
+    
     return block.GetBody().getBounds().intersects(tmp);
 }
 

@@ -11,6 +11,7 @@ private:
     void SetBlock(sf::Vector2i where);
     int InOtherBlock(sf::Vector2i where);
     sf::Vector2i SnapToGrid(sf::Vector2i pos);
+    int MouseInBlock(sf::Vector2i where);
     void MoveBlock(sf::Vector2i where);
 
 public:

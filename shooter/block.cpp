@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+const float Block::eps = 1e-3f;
+
 void Block::ResetVertex() {
     vrt[0].position = position;
 
@@ -80,11 +82,11 @@ sf::VertexArray Block::GetBody() {
 }
 
 bool Block::InBlock(sf::Vector2f where) {
-    if ((position.x + bl_size.x >= where.x) && (position.y + bl_size.y >= where.y) && (where.x >= position.x) && (where.y >= position.y)) {
-        return true;
-    }
-    return false;
-    //return vrt.getBounds().intersects(sf::FloatRect(sf::Vector2f(where.x, where.y), bl_size));
+    return (position.x + bl_size.x >= where.x) && (position.y + bl_size.y >= where.y) && (where.x >= position.x) && (where.y >= position.y);
+}
+
+bool Block::Intersects(Block& block) {
+    return (position.x + bl_size.x > block.GetPosition().x + eps) && (block.GetPosition().x + block.GetSize().x > position.x + eps) && (position.y + bl_size.y > block.GetPosition().y + eps) && (block.GetPosition().y + block.GetSize().y > position.y + eps);
 }
 
 void Block::Draw(sf::RenderWindow* window) {

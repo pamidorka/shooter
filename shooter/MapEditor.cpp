@@ -22,10 +22,8 @@ int MapEditor::InOtherBlock(sf::Vector2i where) {
     Block tmp(sf::Vector2f(where.x - curs_model.GetSize().x / 2, where.y - curs_model.GetSize().y / 2), curs_model.GetSize());
     unsigned int k = 0;
     for (auto i = blocks.begin(); i != blocks.end(); i++) {
-        for (size_t j = 0; j < tmp.GetBody().getVertexCount(); j++) {
-            if (i->InBlock(sf::Vector2f(tmp.GetBody()[j].position.x, tmp.GetBody()[j].position.y))) {
-                return k + 1;
-            }
+        if (i->Intersects(tmp)) { 
+            return k + 1; 
         }
         k++;
     }
@@ -34,13 +32,24 @@ int MapEditor::InOtherBlock(sf::Vector2i where) {
 
 sf::Vector2i MapEditor::SnapToGrid(sf::Vector2i pos) {
     sf::Vector2i tmp;
-    tmp.x = pos.x / 25;
-    tmp.y = pos.y / 25;
+    tmp.x = (pos.x + 12) / 25;
+    tmp.y = (pos.y + 12) / 25;
     
-    tmp.x = (int)tmp.x * 25;
-    tmp.y = (int)tmp.y * 25;
+    tmp.x = tmp.x * 25;
+    tmp.y = tmp.y * 25;
 
     return tmp;
+}
+
+int MapEditor::MouseInBlock(sf::Vector2i where) {
+    unsigned int k = 0;
+    for (auto i = blocks.begin(); i != blocks.end(); i++) {
+        if (i->InBlock(sf::Vector2f(where))) {
+            return k + 1;
+        }
+        k++;
+    }
+    return 0;
 }
 
 void MapEditor::SetBlock(sf::Vector2i where) {
@@ -72,6 +81,14 @@ void MapEditor::PermanentsEvents(sf::RenderWindow* window, double time) {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         if (!InOtherBlock(SnapToGrid(mouse_pos))) {
             SetBlock(SnapToGrid(mouse_pos));
+        }
+    }
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+        int block_id = MouseInBlock(mouse_pos);
+        if (block_id > 4) {
+            auto iterator = blocks.begin();
+            std::advance(iterator, block_id - 1);
+            blocks.erase(iterator);
         }
     }
 

@@ -16,6 +16,8 @@ private:
 
 public:
 
+    const static float eps;
+
     Block(sf::Vector2f pos, sf::Vector2f size, sf::Color color = sf::Color::Black);
     //Block(sf::Vector2f frt_pos, sf::Vector2f scd_pos, sf::Vector2f thr_pos, sf::Vector2f fr_pos, sf::Color color = sf::Color::Black);
     Block() = delete;
@@ -27,6 +29,7 @@ public:
     void LoadFrom(std::fstream &file);
     void SetPosition(sf::Vector2f pos);
     void SetColor(sf::Color color);
+    bool Intersects(Block& block);
 
     sf::Vector2f GetPosition();
     sf::Vector2f GetSize();

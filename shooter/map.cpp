@@ -1,6 +1,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <iomanip>
 
 #include "map.hpp"
 
@@ -25,7 +26,7 @@ Map::Map(const char* from, sf::Vector2u size) /*: hud(sf::Vector2f(50, screen.y 
     }
     file.close();
 
-    enemy.push_back(RedEnemy(sf::Vector2f(700, 50)));
+    //enemy.push_back(RedEnemy(sf::Vector2f(700, 50)));
     //enemy.push_back(RedEnemy(sf::Vector2f(600, 50)));
     //enemy.push_back(RedEnemy(sf::Vector2f(500, 50)));
     //hud.Update(player);
@@ -57,7 +58,13 @@ sf::Vector2f Map::GetVector(sf::Vector2f player_pos, sf::Vector2i mouse_pos) {
 void Map::MoveCollision(Entity &entity, double time) {
     for (auto i = blocks.begin(); i != blocks.end(); i++) {
         if (entity.CheckCollisionX(*i, time)) {
-            entity.SetVelosityX(0);
+            while (entity.CheckCollisionX(*i, time)) {
+                if (abs(entity.GetVelocity().x) < 1e-7f) {
+                    entity.SetVelosityX(0);
+                    break;
+                }
+                entity.SetVelosityX(entity.GetVelocity().x / 2.0);
+            }
             return;
         }
     }
@@ -66,10 +73,18 @@ void Map::MoveCollision(Entity &entity, double time) {
 void Map::FallCollision(Entity &entity, double time) {
     for (auto i = blocks.begin(); i != blocks.end(); i++) {
         if (entity.CheckCollisionY(*i, time)) {
-            if (entity.GetVelocity().y > 0) {
-                entity.SetOnGround(true);
+            std::cout << std::fixed;
+            std::cout << "block: " << std::setprecision(7) << i->GetPosition().x << " " << std::setprecision(7) << i->GetPosition().y << " entity: " << std::setprecision(7) << entity.GetPos().x << " " << std::setprecision(7) << entity.GetPos().y << std::endl;
+            while (entity.CheckCollisionY(*i, time)) {
+                if (abs(entity.GetVelocity().y) < 1e-7f) {
+                    if (entity.GetVelocity().y > 0) {
+                        entity.SetOnGround(true);
+                    }
+                    entity.SetVelosityY(0);
+                    break;
+                }
+                entity.SetVelosityY(entity.GetVelocity().y / 2.0);
             }
-            entity.SetVelosityY(0);
             return;
         }
     }
