@@ -18,8 +18,8 @@ protected:
 public:
 
     virtual void Draw(sf::RenderWindow* window) = 0;
-    virtual bool CheckCollisionX(Block block, double time) = 0;
-    virtual bool CheckCollisionY(Block block, double time) = 0;
+    virtual bool CheckCollisionX(Block& block, double time) = 0;
+    virtual bool CheckCollisionY(Block& block, double time) = 0;
 
     void Move(double time);
     void Jump(float y);

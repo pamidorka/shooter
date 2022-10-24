@@ -24,11 +24,11 @@ void Ammo::Draw(sf::RenderWindow* window) {
     window->draw(model);
 }
 
-bool Ammo::CheckCollisionX(Block block, double time) {
+bool Ammo::CheckCollisionX(Block& block, double time) {
     return false;
 }
 
-bool Ammo::CheckCollisionY(Block block, double time) {
+bool Ammo::CheckCollisionY(Block& block, double time) {
     return false;
 }
 

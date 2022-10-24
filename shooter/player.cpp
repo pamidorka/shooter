@@ -28,17 +28,17 @@ Player::~Player() {
 }
 
 void Player::ResetModel() {
-    model[0].position.x = position.x - size.x / 2.0;
-    model[0].position.y = position.y - size.y / 2.0;
+    model[0].position.x = position.x;
+    model[0].position.y = position.y;
 
-    model[1].position.x = position.x + size.x / 2.0;
-    model[1].position.y = position.y - size.y / 2.0;
+    model[1].position.x = position.x + size.x;
+    model[1].position.y = position.y;
 
-    model[2].position.x = position.x + size.x / 2.0;
-    model[2].position.y = position.y + size.y / 2.0;
+    model[2].position.x = position.x + size.x;
+    model[2].position.y = position.y + size.y;
 
-    model[3].position.x = position.x - size.x / 2.0;
-    model[3].position.y = position.y + size.y / 2.0;
+    model[3].position.x = position.x;
+    model[3].position.y = position.y + size.y;
 }
 
 
@@ -60,16 +60,12 @@ void Player::Draw(sf::RenderWindow* window) {
     window->draw(model);
 }
 
-bool Player::CheckCollisionX(Block block, double time) {
-    sf::FloatRect tmp = model.getBounds();
-    tmp.left += velocity.x * time;
-    tmp.top -= 0.1;
-    
-    return block.GetBody().getBounds().intersects(tmp);
+bool Player::CheckCollisionX(Block& block, double time) {
+    Block tmp(sf::Vector2f(position.x + velocity.x * time, position.y), size);
+    return block.Intersects(tmp);
 }
 
-bool Player::CheckCollisionY(Block block, double time) {
-    sf::FloatRect tmp = model.getBounds();
-    tmp.top += velocity.y * time;
-    return block.GetBody().getBounds().intersects(tmp);
+bool Player::CheckCollisionY(Block& block, double time) {
+    Block tmp(sf::Vector2f(position.x, position.y + velocity.y * time), size);
+    return block.Intersects(tmp);
 }

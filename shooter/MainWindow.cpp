@@ -5,9 +5,15 @@
 
 MainWindow::MainWindow(const char* name, unsigned int width, unsigned int height) {
 
+    if (!font.loadFromFile("OpenSans-Regular.ttf")) {
+        std::cout << "font not loaded, exit" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
     window = new sf::RenderWindow(sf::VideoMode(width, height), name, sf::Style::Close);
     //current_window = new Map("./asd.asd", sf::Vector2u(width, height));
-    current_window = new MapEditor(sf::Vector2u(width, height));
+    //current_window = new MapEditor(sf::Vector2u(width, height));
+    current_window = new MainMenu(sf::Vector2u(width, height), &font);
 
 }
 
@@ -19,7 +25,7 @@ MainWindow::~MainWindow() {
 void MainWindow::Start() {
 
     while(window->isOpen()) {
-        double time = clock.restart().asMicroseconds() / 800;
+        double time = clock.restart().asMicroseconds() / 800.0;
         if (time > 50.0) { continue; }
         while(window->pollEvent(event)) {
             if (event.type == sf::Event::Closed) {

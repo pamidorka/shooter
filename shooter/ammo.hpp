@@ -19,8 +19,8 @@ public:
     ~Ammo();
 
     void Draw(sf::RenderWindow* window) override;
-    bool CheckCollisionX(Block block, double time) override;
-    bool CheckCollisionY(Block block, double time) override;
+    bool CheckCollisionX(Block& block, double time) override;
+    bool CheckCollisionY(Block& block, double time) override;
 
     sf::CircleShape GetModel();
     int GetDamage();

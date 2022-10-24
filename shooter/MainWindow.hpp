@@ -1,5 +1,6 @@
 
 #include "MapEditor.hpp"
+#include "MainMenu.hpp"
 
 class MainWindow {
 private:
@@ -8,6 +9,7 @@ private:
     Window* current_window;
     sf::Clock clock;
     sf::Event event;
+    sf::Font font;
 
 public:
 

@@ -60,8 +60,8 @@ void MapEditor::EventListener(sf::RenderWindow* window, sf::Event event, double 
     switch (event.type) {
     case sf::Event::KeyPressed:
         if (event.key.code == sf::Keyboard::B) {
-            std::cout << "you try to save map" << std::endl;
             Save("./asd.asd");
+            std::cout << "you try to save the map" << std::endl;
         }
         if (event.key.code == sf::Keyboard::R) {
             auto iterator = blocks.begin();

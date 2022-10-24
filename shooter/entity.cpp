@@ -27,8 +27,8 @@ void Entity::SetOnGround(bool value) {
 
 void Entity::Move(double time) {
     position.x += velocity.x * time;
-    if (!on_ground) { velocity.y += gravity * time; }
     position.y += velocity.y * time;
+    if (!on_ground) { velocity.y += gravity * time; }
 }
 
 void Entity::Jump(float y) {

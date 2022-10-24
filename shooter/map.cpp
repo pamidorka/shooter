@@ -73,17 +73,15 @@ void Map::MoveCollision(Entity &entity, double time) {
 void Map::FallCollision(Entity &entity, double time) {
     for (auto i = blocks.begin(); i != blocks.end(); i++) {
         if (entity.CheckCollisionY(*i, time)) {
-            std::cout << std::fixed;
-            std::cout << "block: " << std::setprecision(7) << i->GetPosition().x << " " << std::setprecision(7) << i->GetPosition().y << " entity: " << std::setprecision(7) << entity.GetPos().x << " " << std::setprecision(7) << entity.GetPos().y << std::endl;
             while (entity.CheckCollisionY(*i, time)) {
-                if (abs(entity.GetVelocity().y) < 1e-7f) {
-                    if (entity.GetVelocity().y > 0) {
+                if (abs(entity.GetVelocity().y) < 1e-3f) {
+                    if (entity.GetVelocity().y > 0.f) {
                         entity.SetOnGround(true);
                     }
-                    entity.SetVelosityY(0);
-                    break;
+                    entity.SetVelosityY(0.f);
+                    return;
                 }
-                entity.SetVelosityY(entity.GetVelocity().y / 2.0);
+                entity.SetVelosityY(entity.GetVelocity().y / 2.0f);
             }
             return;
         }
