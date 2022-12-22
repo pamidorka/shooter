@@ -12,6 +12,11 @@ private:
     Button editor_btn;
     MultipleButtons difficulty_btn;
 
+    sf::Font* font;
+
+    bool mouse_state;
+    sf::Vector2f mouse_pos;
+
 public:
 
     static const std::string sgb_text;
@@ -22,9 +27,9 @@ public:
     static const ButtonColorSet ColorsDisabled;
     static const ButtonColorSet ColorsEnabled;
 
-    MainMenu(sf::Vector2u screen_size, const sf::Font* font);
+    MainMenu(sf::Vector2u screen_size, sf::Font* font);
 
-    void EventListener(sf::RenderWindow* window, sf::Event event, double time) override;
+    Window* EventListener(sf::RenderWindow* window, sf::Event event, double time) override;
     void Draw(sf::RenderWindow* window) override;
     void PermanentsEvents(sf::RenderWindow* window, double time) override;
 

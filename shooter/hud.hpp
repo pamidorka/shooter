@@ -3,6 +3,9 @@
 
 #include "player.hpp"
 
+#ifndef HUD__
+#define HUD__
+
 class HUD {
 private:
 
@@ -23,4 +26,6 @@ public:
 	void Draw(sf::RenderWindow* window);
 
 };
+
+#endif
 

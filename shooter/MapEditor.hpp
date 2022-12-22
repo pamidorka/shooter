@@ -7,6 +7,8 @@ private:
 
     std::list<Block> blocks;
     Block curs_model;
+
+    sf::Font* font;
     
     void SetBlock(sf::Vector2i where);
     int InOtherBlock(sf::Vector2i where);
@@ -16,13 +18,13 @@ private:
 
 public:
 
-    MapEditor(sf::Vector2u screen);
+    MapEditor(sf::Vector2u screen, sf::Font* load_font);
     ~MapEditor() override;
 
     void Save(const char* file_name);
     void Load(const char* file_name);
 
-    void EventListener(sf::RenderWindow* window, sf::Event event, double time) override; 
+    Window* EventListener(sf::RenderWindow* window, sf::Event event, double time) override; 
     void PermanentsEvents(sf::RenderWindow* window, double time);
     void Draw(sf::RenderWindow* window) override;
 

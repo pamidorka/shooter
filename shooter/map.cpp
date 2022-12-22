@@ -4,8 +4,9 @@
 #include <iomanip>
 
 #include "map.hpp"
+#include "MainMenu.hpp"
 
-Map::Map(const char* from, sf::Vector2u size) /*: hud(sf::Vector2f(50, screen.y - 200))*/ {
+Map::Map(const char* from, sf::Vector2u size, sf::Font* load_font) /*: hud(sf::Vector2f(50, screen.y - 200))*/ {
     screen = size;
     blocks.clear();
     blocks.push_back(Block(sf::Vector2f(-50, 0), sf::Vector2f(50, screen.y)));
@@ -26,15 +27,17 @@ Map::Map(const char* from, sf::Vector2u size) /*: hud(sf::Vector2f(50, screen.y 
     }
     file.close();
 
+    font = load_font;
+
     //enemy.push_back(RedEnemy(sf::Vector2f(700, 50)));
     //enemy.push_back(RedEnemy(sf::Vector2f(600, 50)));
     //enemy.push_back(RedEnemy(sf::Vector2f(500, 50)));
     //hud.Update(player);
 }
 
-Map::Map(sf::Vector2u size) /*: hud(sf::Vector2f(50, screen.y - 100))*/ {
+Map::Map(sf::Vector2u size, sf::Font* load_font) /*: hud(sf::Vector2f(50, screen.y - 100))*/ {
     screen = size;
-
+    font = load_font;
 }
 
 Map::~Map() {
@@ -106,8 +109,19 @@ void Map::EnemyHandlerAI(double time) {
     }
 }
 
-void Map::EventListener(sf::RenderWindow* window, sf::Event event, double time) {
+Window* Map::EventListener(sf::RenderWindow* window, sf::Event event, double time) {
 
+    if (event.type == sf::Event::KeyPressed) {
+        switch (event.key.code) {
+        case sf::Keyboard::Escape:
+            return new MainMenu(screen, font);
+            break;
+        default:
+            break;
+        }
+    }
+
+    return nullptr;
 }
 
 void Map::Draw(sf::RenderWindow* window) {

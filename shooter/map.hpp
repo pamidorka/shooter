@@ -8,6 +8,9 @@
 
 #include <list>
 
+#ifndef MAP__
+#define MAP__
+
 class Map : public Window {
 private:
 
@@ -16,6 +19,8 @@ private:
     std::list<Block> blocks;
     std::list<Enemy> enemy;
     std::list<Ammo> ammo;
+
+    sf::Font* font;
     
     Player player = Player(sf::Vector2f(100, Player::size.y));
     sf::Vector2u screen;
@@ -27,12 +32,14 @@ private:
 
 public:
 
-    Map(const char* from, sf::Vector2u size);
-    Map(sf::Vector2u size); // empty map
+    Map(const char* from, sf::Vector2u size, sf::Font* load_font);
+    Map(sf::Vector2u size, sf::Font* load_font); // empty map
     ~Map() override;
 
-    void EventListener(sf::RenderWindow* window, sf::Event event, double time) override;
+    Window* EventListener(sf::RenderWindow* window, sf::Event event, double time) override;
     void Draw(sf::RenderWindow* window) override;
     void PermanentsEvents(sf::RenderWindow* window, double time) override;
 
 };
+
+#endif 

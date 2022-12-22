@@ -11,8 +11,6 @@ MainWindow::MainWindow(const char* name, unsigned int width, unsigned int height
     }
 
     window = new sf::RenderWindow(sf::VideoMode(width, height), name, sf::Style::Close);
-    //current_window = new Map("./asd.asd", sf::Vector2u(width, height));
-    //current_window = new MapEditor(sf::Vector2u(width, height));
     current_window = new MainMenu(sf::Vector2u(width, height), &font);
 
 }
@@ -32,7 +30,12 @@ void MainWindow::Start() {
                 window->close();
             }
             else {
-                current_window->EventListener(window, event, time);
+                Window* temp = current_window->EventListener(window, event, time);
+                if (temp) {
+                    delete current_window;
+                    current_window = temp;
+                    time = 0;
+                }
             }
         }
         current_window->PermanentsEvents(window, time);

@@ -1,15 +1,18 @@
 
 #include "MapEditor.hpp"
+#include "MainMenu.hpp"
 
 #include <iostream>
 #include <iterator>
 
-MapEditor::MapEditor(sf::Vector2u screen) : curs_model(sf::Vector2f(0, 0), sf::Vector2f(50, 50), sf::Color(190, 190, 190)) {
+MapEditor::MapEditor(sf::Vector2u screen, sf::Font* load_font) : curs_model(sf::Vector2f(0, 0), sf::Vector2f(50, 50), sf::Color(190, 190, 190)) {
     blocks.clear();
     blocks.push_back(Block(sf::Vector2f(-50, 0), sf::Vector2f(50, screen.y)));
     blocks.push_back(Block(sf::Vector2f(0, screen.y), sf::Vector2f(screen.x, 50)));
     blocks.push_back(Block(sf::Vector2f(screen.x, 0), sf::Vector2f(50, screen.y)));
     blocks.push_back(Block(sf::Vector2f(0, -50), sf::Vector2f(screen.x, 50)));
+    
+    font = load_font;
 
     Load("./asd.asd");
 }
@@ -56,22 +59,27 @@ void MapEditor::SetBlock(sf::Vector2i where) {
     blocks.push_back(Block(sf::Vector2f(where.x - curs_model.GetSize().x / 2, where.y - curs_model.GetSize().y / 2), curs_model.GetSize()));
 }
 
-void MapEditor::EventListener(sf::RenderWindow* window, sf::Event event, double time) {
-    switch (event.type) {
-    case sf::Event::KeyPressed:
-        if (event.key.code == sf::Keyboard::B) {
+Window* MapEditor::EventListener(sf::RenderWindow* window, sf::Event event, double time) {
+    if (event.type == sf::Event::KeyPressed) {
+        auto iterator = blocks.begin();
+        switch (event.key.code) {
+        case sf::Keyboard::Escape:
+            return new MainMenu(window->getSize(), font);
+            break;
+        case sf::Keyboard::B:
             Save("./asd.asd");
-            std::cout << "you try to save the map" << std::endl;
-        }
-        if (event.key.code == sf::Keyboard::R) {
-            auto iterator = blocks.begin();
+            break;
+        case sf::Keyboard::R:
             std::advance(iterator, 4);
             blocks.erase(iterator, blocks.end());
+            break;
+        default:
+            break;
         }
-        break;
-    default:
-        break;
+        
     }
+
+    return nullptr;
 }
 
 void MapEditor::PermanentsEvents(sf::RenderWindow* window, double time) {

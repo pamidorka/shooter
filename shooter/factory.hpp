@@ -3,6 +3,9 @@
 #include "enemy/yellow.hpp"
 #include "enemy/green.hpp"
 
+#ifndef FACTORY__
+#define FACTORY__
+
 class Factory {
 private:
 
@@ -16,3 +19,5 @@ public:
     Enemy GiveMe();
 
 };
+
+#endif
