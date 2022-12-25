@@ -16,12 +16,14 @@ protected:
 public:
 
     Gun() = default;
-    virtual ~Gun();
+    virtual ~Gun() = 0;
 
     int GetDmg();
     void Cooldown();
     bool CanShoot();
     void Reset();
+
+    virtual std::string GetGunName() const = 0;
 
 };
 

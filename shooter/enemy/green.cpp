@@ -13,7 +13,7 @@ GreenEnemy::GreenEnemy(sf::Vector2f pos) {
 	on_ground = false;
 
 	damage = 1;
-	hp = 10;
+	hp = 15;
 }
 
 GreenEnemy::~GreenEnemy()

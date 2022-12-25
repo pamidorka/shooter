@@ -9,7 +9,7 @@
 class HUD {
 private:
 
-	sf::Font font;
+	sf::Font* font;
 
 	std::string gun_name;
 	std::string hp_count;
@@ -17,10 +17,9 @@ private:
 	sf::Text gun_text;
 	sf::Text hp_text;
 
-
 public:
 	
-	HUD(sf::Vector2f pos);
+	HUD(sf::Vector2f pos, sf::Font* load_font);
 
 	void Update(const Player& player);
 	void Draw(sf::RenderWindow* window);

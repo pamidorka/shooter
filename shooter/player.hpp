@@ -1,6 +1,8 @@
 
 #include "entity.hpp"
 #include "ak.hpp"
+#include "AWP.hpp"
+#include "M4.hpp"
 #include "enemy.hpp"
 
 
@@ -10,7 +12,7 @@
 class Player : public Entity {
 private:
 
-    Gun gun;
+    Gun* gun;
     sf::VertexArray model;
 
     void ResetModel();
@@ -24,6 +26,8 @@ public:
 
     Ammo* Fire(sf::Vector2f vector);
     bool EnemyInside(Enemy& enemy);
+    void SetGun(Gun* new_gun);
+    std::string GetGunName() const;
 
     void Draw(sf::RenderWindow* window) override;
     bool CheckCollisionX(Block& block, double time) override;

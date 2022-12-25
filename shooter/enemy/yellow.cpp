@@ -13,9 +13,9 @@ YellowEnemy::YellowEnemy(sf::Vector2f pos) {
 	on_ground = false;
 
 	damage = 3;
-	hp = 15;
+	hp = 20;
 }
 
-YellowEnemy::~YellowEnemy()
-{
+YellowEnemy::~YellowEnemy() {
+
 }

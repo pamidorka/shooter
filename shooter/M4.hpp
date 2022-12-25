@@ -1,17 +1,16 @@
 
 #include "gun.hpp"
 
-#ifndef AK_
-#define AK_
+#ifndef M4__
+#define M4__
 
-class AK : public Gun {
+class M4 : public Gun {
 public:
 
-	AK();
-	~AK();
+	M4();
+	~M4();
 
 	std::string GetGunName() const override;
-
 };
 
 #endif

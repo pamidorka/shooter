@@ -14,7 +14,7 @@
 class Map : public Window {
 private:
 
-    //HUD hud;
+    HUD hud;
 
     std::list<Block> blocks;
     std::list<Enemy> enemy;
@@ -29,7 +29,7 @@ private:
     sf::Vector2u screen;
 
     sf::Vector2f GetVector(sf::Vector2f player_pos, sf::Vector2i mouse_pos);
-    void MoveCollision(Entity& entity, double time);
+    bool MoveCollision(Entity& entity, double time);
     void FallCollision(Entity& entity, double time);
     void EnemyHandlerAI(double time);
     sf::Vector2f GetRandomNewEnemyPos();

@@ -3,14 +3,12 @@
 
 #include <iostream>
 
-HUD::HUD(sf::Vector2f pos) {
+HUD::HUD(sf::Vector2f pos, sf::Font* load_font) {
 
-	if (!font.loadFromFile("./OpenSans-Regular.ttf")) {
-		std::cout << "font for the hud dont loaded" << std::endl;
-	}
+	font = load_font;
 
-	hp_text.setFont(font);
-	gun_text.setFont(font);
+	hp_text.setFont(*font);
+	gun_text.setFont(*font);
 
 	hp_text.setCharacterSize(30);
 	gun_text.setCharacterSize(30);
@@ -19,12 +17,12 @@ HUD::HUD(sf::Vector2f pos) {
 	gun_text.setFillColor(sf::Color::Black);
 
 	hp_text.setPosition(pos);
-	gun_text.setPosition(sf::Vector2f(pos.x + hp_text.getGlobalBounds().width + 50, pos.y));
+	gun_text.setPosition(sf::Vector2f(pos.x + hp_text.getGlobalBounds().width + 100, pos.y));
 }
 
 void HUD::Update(const Player& player) {
-	hp_count = std::string("hp: ") + std::to_string(player.GetHp());
-	gun_name = "gun: ak";
+	hp_count = "hp: " + std::to_string(player.GetHp());
+	gun_name = "gun: " + player.GetGunName();
 
 	hp_text.setString(hp_count);
 	gun_text.setString(gun_name);

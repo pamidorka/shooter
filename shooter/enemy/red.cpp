@@ -13,7 +13,7 @@ RedEnemy::RedEnemy(sf::Vector2f pos) {
 	on_ground = false;
 
 	damage = 5;
-	hp = 20;
+	hp = 30;
 }
 
 RedEnemy::~RedEnemy() {

@@ -8,7 +8,7 @@ const sf::Vector2f Player::size = sf::Vector2f(50, 50);
 Player::Player(sf::Vector2f pos) {
 
     model = sf::VertexArray(sf::PrimitiveType::Quads, 4);
-    gun = AK();
+    gun = new AK();
 
     position = pos;
     velocity.x = 0;
@@ -24,7 +24,7 @@ Player::Player(sf::Vector2f pos) {
 }
 
 Player::~Player() {
-
+    delete gun;
 }
 
 void Player::ResetModel() {
@@ -43,16 +43,25 @@ void Player::ResetModel() {
 
 
 Ammo* Player::Fire(sf::Vector2f vector) {
-    if (!gun.CanShoot()) {
-        gun.Cooldown();
+    if (!gun->CanShoot()) {
+        gun->Cooldown();
         return nullptr;
     }
-    gun.Reset();
-    return new Ammo(position, vector, gun.GetDmg());
+    gun->Reset();
+    return new Ammo(position + size / 2.f, vector, gun->GetDmg());
 }
 
 bool Player::EnemyInside(Enemy& enemy) {
     return enemy.GetModel().getGlobalBounds().intersects(model.getBounds());
+}
+
+void Player::SetGun(Gun* new_gun) {
+    delete gun;
+    gun = new_gun;
+}
+
+std::string Player::GetGunName() const {
+    return gun->GetGunName();
 }
 
 void Player::Draw(sf::RenderWindow* window) {

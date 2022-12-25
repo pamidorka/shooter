@@ -9,3 +9,7 @@ AK::AK() {
 AK::~AK() {
 
 }
+
+std::string AK::GetGunName() const {
+	return "AK";
+}

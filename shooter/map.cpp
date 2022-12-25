@@ -6,7 +6,7 @@
 #include "map.hpp"
 #include "MainMenu.hpp"
 
-Map::Map(const char* from, sf::Vector2u size, sf::Font* load_font, char difficulty) : factory(difficulty) {
+Map::Map(const char* from, sf::Vector2u size, sf::Font* load_font, char difficulty) : factory(difficulty), hud(sf::Vector2f(10, 0), load_font) {
     screen = size;
     blocks.clear();
     blocks.push_back(Block(sf::Vector2f(-50, 0), sf::Vector2f(50, screen.y)));
@@ -32,7 +32,7 @@ Map::Map(const char* from, sf::Vector2u size, sf::Font* load_font, char difficul
     //enemy.push_back(RedEnemy(sf::Vector2f(700, 50)));
     //enemy.push_back(RedEnemy(sf::Vector2f(600, 50)));
     //enemy.push_back(RedEnemy(sf::Vector2f(500, 50)));
-    //hud.Update(player);
+    hud.Update(player);
 }
 
 Map::~Map() {
@@ -53,7 +53,7 @@ sf::Vector2f Map::GetVector(sf::Vector2f player_pos, sf::Vector2i mouse_pos) {
     return dir;
 }
 
-void Map::MoveCollision(Entity &entity, double time) {
+bool Map::MoveCollision(Entity &entity, double time) {
     for (auto i = blocks.begin(); i != blocks.end(); i++) {
         if (entity.CheckCollisionX(*i, time)) {
             while (entity.CheckCollisionX(*i, time)) {
@@ -63,9 +63,11 @@ void Map::MoveCollision(Entity &entity, double time) {
                 }
                 entity.SetVelosityX(entity.GetVelocity().x / 2.0);
             }
-            return;
+            return true;
         }
     }
+
+    return false;
 }
 
 void Map::FallCollision(Entity &entity, double time) {
@@ -95,11 +97,8 @@ void Map::EnemyHandlerAI(double time) {
         else {
             i->SetVelosityX(-0.2);
         }
-        for (auto j = blocks.begin(); j != blocks.end(); j++) {
-            if (i->CheckCollisionX(*j, time)) {
-                i->Jump(-0.5);
-                i->SetVelosityX(0);
-            }
+        if (MoveCollision(*i, time)) {
+            i->Jump(-0.5);
         }
     }
 }
@@ -115,16 +114,26 @@ Window* Map::EventListener(sf::RenderWindow* window, sf::Event event, double tim
         case sf::Keyboard::Escape:
             return new MainMenu(screen, font);
             break;
+        case sf::Keyboard::Num1:
+            player.SetGun(new AK());
+            break;
+        case sf::Keyboard::Num2:
+            player.SetGun(new M4());
+            break;
+        case sf::Keyboard::Num3:
+            player.SetGun(new AWP());
+            break;
         default:
             break;
         }
+        hud.Update(player);
     }
 
     return nullptr;
 }
 
 void Map::Draw(sf::RenderWindow* window) {
-    //hud.Draw(window);
+    hud.Draw(window);
     for (auto i = ammo.begin(); i != ammo.end(); i++) {
         i->Draw(window);
     }
@@ -209,16 +218,13 @@ void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
         i->Move(time);
         if (player.EnemyInside(*i)) {
             player.ChangeHp(-(i->GetDamage()));
-           /*if (player.GetHp() <= 0) {
-                exit(EXIT_SUCCESS);
-            }*/
-            //hud.Update(player);
+            hud.Update(player);
         }
     }
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         sf::Vector2i mouse = sf::Mouse::getPosition(*window);
-        Ammo* tmp = player.Fire(GetVector(player.GetPos(), mouse));
+        Ammo* tmp = player.Fire(GetVector(player.GetPos() + player.size / 2.f, mouse));
         if (tmp) {
             ammo.push_back(*tmp);
             delete tmp;

@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClCompile Include="ak.cpp" />
     <ClCompile Include="ammo.cpp" />
+    <ClCompile Include="AWP.cpp" />
     <ClCompile Include="block.cpp" />
     <ClCompile Include="Buttons\Button.cpp" />
     <ClCompile Include="Buttons\MultipleButtons.cpp" />
@@ -156,6 +157,7 @@
     <ClCompile Include="factory.cpp" />
     <ClCompile Include="gun.cpp" />
     <ClCompile Include="hud.cpp" />
+    <ClCompile Include="M4.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MainWindow.cpp" />
@@ -166,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ammo.hpp" />
+    <ClInclude Include="AWP.hpp" />
     <ClInclude Include="block.hpp" />
     <ClInclude Include="Buttons\Button.hpp" />
     <ClInclude Include="Buttons\MultipleButtons.hpp" />
@@ -179,6 +182,7 @@
     <ClInclude Include="gun.hpp" />
     <ClInclude Include="ak.hpp" />
     <ClInclude Include="hud.hpp" />
+    <ClInclude Include="M4.hpp" />
     <ClInclude Include="MainMenu.hpp" />
     <ClInclude Include="MainWindow.hpp" />
     <ClInclude Include="map.hpp" />
