@@ -21,6 +21,7 @@ MainMenu::MainMenu(sf::Vector2u screen_size, sf::Font* load_font) : start_game_b
 	difficulty_btn.AddButton(tmp);
 	tmp = ToggleButton(screen_size.x / 2.0 + 75, screen_size.y / 2.0 + 50, 100, 50, load_font, "Hard", "Hard", 12, ColorsEnabled, ColorsDisabled);
 	difficulty_btn.AddButton(tmp);
+	difficulty_btn.SetActiveButtonId(0);
 	font = load_font;
 }
 
@@ -38,7 +39,7 @@ Window* MainMenu::EventListener(sf::RenderWindow* window, sf::Event event, doubl
 
 	difficulty_btn.Update(mouse_pos, mouse_state);
 	if (start_game_btn.Update(mouse_pos, mouse_state)) {
-		return new Map("./asd.asd", window->getSize(), font);
+		return new Map("./asd.asd", window->getSize(), font, difficulty_btn.GetActiveButtonId());
 	}
 	if (editor_btn.Update(mouse_pos, mouse_state)) {
 		return new MapEditor(window->getSize(), font);

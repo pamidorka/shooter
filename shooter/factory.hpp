@@ -9,14 +9,15 @@
 class Factory {
 private:
 
-    char difficulty;
+    float split_one;
+    float split_two;
 
 public:
 
     Factory(char difficulty);
     ~Factory();
 
-    Enemy GiveMe();
+    Enemy GiveMe(sf::Vector2f pos);
 
 };
 

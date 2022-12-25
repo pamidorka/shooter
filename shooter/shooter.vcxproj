@@ -149,7 +149,9 @@
     <ClCompile Include="Buttons\MultipleButtons.cpp" />
     <ClCompile Include="Buttons\ToggleButton.cpp" />
     <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="enemy\green.cpp" />
     <ClCompile Include="enemy\red.cpp" />
+    <ClCompile Include="enemy\yellow.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="factory.cpp" />
     <ClCompile Include="gun.cpp" />
