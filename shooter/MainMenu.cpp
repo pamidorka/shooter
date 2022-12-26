@@ -54,6 +54,6 @@ void MainMenu::Draw(sf::RenderWindow* window) {
 	difficulty_btn.Render(window);
 }
 
-void MainMenu::PermanentsEvents(sf::RenderWindow* window, double time) {
-	
+Window* MainMenu::PermanentsEvents(sf::RenderWindow* window, double time) {
+	return nullptr;
 }

@@ -38,7 +38,12 @@ void MainWindow::Start() {
                 }
             }
         }
-        current_window->PermanentsEvents(window, time);
+        Window* temp = current_window->PermanentsEvents(window, time);
+        if (temp) {
+            delete current_window;
+            current_window = temp;
+            time = 0;
+        }
         window->clear(sf::Color::White);
         current_window->Draw(window);
         window->display();

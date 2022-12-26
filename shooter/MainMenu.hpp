@@ -31,7 +31,7 @@ public:
 
     Window* EventListener(sf::RenderWindow* window, sf::Event event, double time) override;
     void Draw(sf::RenderWindow* window) override;
-    void PermanentsEvents(sf::RenderWindow* window, double time) override;
+    Window* PermanentsEvents(sf::RenderWindow* window, double time) override;
 
 };
 

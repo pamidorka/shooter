@@ -27,6 +27,7 @@ public:
     bool EnemyInside(Enemy& enemy);
     void SetGun(Gun* new_gun);
     std::string GetGunName() const;
+    void SetPosition(sf::Vector2f pos);
 
     void Draw(sf::RenderWindow* window) override;
     bool CheckCollisionX(Block& block, double time) override;

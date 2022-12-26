@@ -47,6 +47,10 @@ std::string Player::GetGunName() const {
     return gun->GetGunName();
 }
 
+void Player::SetPosition(sf::Vector2f pos) {
+    position = pos;
+}
+
 void Player::Draw(sf::RenderWindow* window) {
     model.setPosition(position);
     model.setTexture(&texture);

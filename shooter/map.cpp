@@ -29,9 +29,7 @@ Map::Map(const char* from, sf::Vector2u size, sf::Font* load_font, char difficul
 
     font = load_font;
 
-    //enemy.push_back(RedEnemy(sf::Vector2f(700, 50)));
-    //enemy.push_back(RedEnemy(sf::Vector2f(600, 50)));
-    enemy.push_back(RedEnemy(sf::Vector2f(500, 50)));
+    player.SetPosition(GetRandomNewEnemyPos());
     hud.Update(player);
 }
 
@@ -97,11 +95,37 @@ void Map::EnemyHandlerAI(double time) {
         else {
             i->SetVelosityX(-0.2);
         }
+        for (auto j = blocks.begin(); j != blocks.end(); j++) {
+            if (i->CheckCollisionX(*j, time)) {
+                i->Jump(-0.5);
+                i->SetVelosityX(0);
+            }
+        }
     }
 }
 
 sf::Vector2f Map::GetRandomNewEnemyPos() {
-    return sf::Vector2f();
+
+    sf::Vector2f new_pos = {0, 0};
+    Block temp(new_pos, sf::Vector2f(50, 50));
+
+    while (true) {
+
+        new_pos.x = rand() % (screen.x - 50);
+        new_pos.y = rand() % (screen.y - 50);
+        temp.SetPosition(new_pos);
+
+        bool flag = true;
+        for (auto i = blocks.begin(); i != blocks.end(); i++) {
+            if (temp.Intersects(*i)) {
+                flag = false;
+                break;
+            }
+        }
+        if (flag) {
+            return new_pos;
+        }
+    }
 }
 
 Window* Map::EventListener(sf::RenderWindow* window, sf::Event event, double time) {
@@ -143,7 +167,7 @@ void Map::Draw(sf::RenderWindow* window) {
     }
 }
 
-void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
+Window* Map::PermanentsEvents(sf::RenderWindow* window, double time) {
 
     if (spawn_timer.getElapsedTime().asSeconds() > 3 && enemy.size() < 15) {
         enemy.push_back(factory.GiveMe(GetRandomNewEnemyPos()));
@@ -207,7 +231,6 @@ void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
 
     for (auto i = enemy.begin(); i != enemy.end(); i++) {
         FallCollision(*i, time);
-        MoveCollision(*i, time);
     }
 
     EnemyHandlerAI(time);
@@ -231,4 +254,10 @@ void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
             delete tmp;
         }
     }
+
+    if (player.GetHp() <= 0) {
+        return new MainMenu(screen, font);
+    }
+
+    return nullptr;
 }

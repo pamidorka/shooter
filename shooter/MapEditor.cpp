@@ -82,7 +82,7 @@ Window* MapEditor::EventListener(sf::RenderWindow* window, sf::Event event, doub
     return nullptr;
 }
 
-void MapEditor::PermanentsEvents(sf::RenderWindow* window, double time) {
+Window* MapEditor::PermanentsEvents(sf::RenderWindow* window, double time) {
 
     sf::Vector2i mouse_pos = sf::Mouse::getPosition(*window);
 
@@ -109,6 +109,7 @@ void MapEditor::PermanentsEvents(sf::RenderWindow* window, double time) {
 
     curs_model.SetPosition(sf::Vector2f(SnapToGrid(sf::Vector2i(mouse_pos.x - curs_model.GetSize().x / 2, mouse_pos.y - curs_model.GetSize().y / 2))));
 
+    return nullptr;
 }
 
 void MapEditor::Draw(sf::RenderWindow* window) {

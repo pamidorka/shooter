@@ -25,7 +25,7 @@ public:
     void Load(const char* file_name);
 
     Window* EventListener(sf::RenderWindow* window, sf::Event event, double time) override; 
-    void PermanentsEvents(sf::RenderWindow* window, double time);
+    Window* PermanentsEvents(sf::RenderWindow* window, double time);
     void Draw(sf::RenderWindow* window) override;
 
 };
