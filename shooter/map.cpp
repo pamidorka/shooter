@@ -169,7 +169,7 @@ void Map::Draw(sf::RenderWindow* window) {
 
 Window* Map::PermanentsEvents(sf::RenderWindow* window, double time) {
 
-    if (spawn_timer.getElapsedTime().asSeconds() > 3 && enemy.size() < 15) {
+    if (spawn_timer.getElapsedTime().asSeconds() > 3 && enemy.size() < 8) {
         enemy.push_back(factory.GiveMe(GetRandomNewEnemyPos()));
         spawn_timer.restart();
     }
