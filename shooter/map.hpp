@@ -24,6 +24,7 @@ private:
 
     sf::Font* font;
     sf::Clock spawn_timer;
+    sf::Clock dmg_timer;
     
     Player player = Player(sf::Vector2f(100, Player::size.y));
     sf::Vector2u screen;

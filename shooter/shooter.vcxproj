@@ -193,6 +193,13 @@
   <ItemGroup>
     <None Include="README.md" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\x64\Debug\ammo.png" />
+    <Image Include="..\x64\Debug\green.png" />
+    <Image Include="..\x64\Debug\player.png" />
+    <Image Include="..\x64\Debug\red.png" />
+    <Image Include="..\x64\Debug\yellow.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

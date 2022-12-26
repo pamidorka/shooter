@@ -9,7 +9,7 @@
 class Entity {
 protected:
     
-    int hp;
+    char hp;
     bool on_ground;
     sf::Vector2f position;
     sf::Vector2f velocity;

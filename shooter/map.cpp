@@ -31,7 +31,7 @@ Map::Map(const char* from, sf::Vector2u size, sf::Font* load_font, char difficul
 
     //enemy.push_back(RedEnemy(sf::Vector2f(700, 50)));
     //enemy.push_back(RedEnemy(sf::Vector2f(600, 50)));
-    //enemy.push_back(RedEnemy(sf::Vector2f(500, 50)));
+    enemy.push_back(RedEnemy(sf::Vector2f(500, 50)));
     hud.Update(player);
 }
 
@@ -97,9 +97,6 @@ void Map::EnemyHandlerAI(double time) {
         else {
             i->SetVelosityX(-0.2);
         }
-        if (MoveCollision(*i, time)) {
-            i->Jump(-0.5);
-        }
     }
 }
 
@@ -148,7 +145,7 @@ void Map::Draw(sf::RenderWindow* window) {
 
 void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
 
-    if (spawn_timer.getElapsedTime().asSeconds() > 3) {
+    if (spawn_timer.getElapsedTime().asSeconds() > 3 && enemy.size() < 15) {
         enemy.push_back(factory.GiveMe(GetRandomNewEnemyPos()));
         spawn_timer.restart();
     }
@@ -210,15 +207,19 @@ void Map::PermanentsEvents(sf::RenderWindow* window, double time) {
 
     for (auto i = enemy.begin(); i != enemy.end(); i++) {
         FallCollision(*i, time);
+        MoveCollision(*i, time);
     }
 
     EnemyHandlerAI(time);
 
     for (auto i = enemy.begin(); i != enemy.end(); i++) {
         i->Move(time);
-        if (player.EnemyInside(*i)) {
-            player.ChangeHp(-(i->GetDamage()));
-            hud.Update(player);
+        if (dmg_timer.getElapsedTime().asSeconds() > 1) {
+            if (player.EnemyInside(*i)) {
+                player.ChangeHp(-(i->GetDamage()));
+                hud.Update(player);
+                dmg_timer.restart();
+            }
         }
     }
 

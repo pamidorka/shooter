@@ -10,8 +10,11 @@ protected:
 
     int damage;
     sf::RectangleShape model;
+    sf::Texture texture;
 
 public:
+
+    Enemy(const char* name);
     
     bool InEnemy(Ammo bullet);
     sf::RectangleShape GetModel();

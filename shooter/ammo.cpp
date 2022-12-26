@@ -11,7 +11,7 @@ Ammo::Ammo(sf::Vector2f pos, sf::Vector2f velocity, int dmg) {
 
     model = sf::CircleShape(3.0);
     model.setPosition(pos);
-    model.setFillColor(sf::Color::Blue);
+    texture.loadFromFile("ammo.png");
 
 }
 
@@ -21,6 +21,7 @@ Ammo::~Ammo() {
 
 void Ammo::Draw(sf::RenderWindow* window) {
     model.setPosition(position);
+    model.setTexture(&texture);
     window->draw(model);
 }
 

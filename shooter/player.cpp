@@ -7,40 +7,23 @@ const sf::Vector2f Player::size = sf::Vector2f(50, 50);
 
 Player::Player(sf::Vector2f pos) {
 
-    model = sf::VertexArray(sf::PrimitiveType::Quads, 4);
+    model = sf::RectangleShape(size);
     gun = new AK();
 
     position = pos;
     velocity.x = 0;
     velocity.y = 0;
     gravity = 0.002;
-    hp = 50;
+    hp = 10;
+    
+    texture.loadFromFile("player.png");
+    model.setPosition(pos);
 
-    ResetModel();
-
-    for (unsigned int i = 0; i < 4; i++) {
-        model[i].color = sf::Color::Blue;
-    }
 }
 
 Player::~Player() {
     delete gun;
 }
-
-void Player::ResetModel() {
-    model[0].position.x = position.x;
-    model[0].position.y = position.y;
-
-    model[1].position.x = position.x + size.x;
-    model[1].position.y = position.y;
-
-    model[2].position.x = position.x + size.x;
-    model[2].position.y = position.y + size.y;
-
-    model[3].position.x = position.x;
-    model[3].position.y = position.y + size.y;
-}
-
 
 Ammo* Player::Fire(sf::Vector2f vector) {
     if (!gun->CanShoot()) {
@@ -52,7 +35,7 @@ Ammo* Player::Fire(sf::Vector2f vector) {
 }
 
 bool Player::EnemyInside(Enemy& enemy) {
-    return enemy.GetModel().getGlobalBounds().intersects(model.getBounds());
+    return enemy.GetModel().getGlobalBounds().intersects(model.getGlobalBounds());
 }
 
 void Player::SetGun(Gun* new_gun) {
@@ -65,7 +48,8 @@ std::string Player::GetGunName() const {
 }
 
 void Player::Draw(sf::RenderWindow* window) {
-    ResetModel();
+    model.setPosition(position);
+    model.setTexture(&texture);
     window->draw(model);
 }
 

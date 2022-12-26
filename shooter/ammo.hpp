@@ -11,6 +11,7 @@ private:
 
     sf::CircleShape model;
     int damage;
+    sf::Texture texture;
 
 public:
 

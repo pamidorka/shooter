@@ -13,9 +13,8 @@ class Player : public Entity {
 private:
 
     Gun* gun;
-    sf::VertexArray model;
-
-    void ResetModel();
+    sf::RectangleShape model;
+    sf::Texture texture;
 
 public:
 

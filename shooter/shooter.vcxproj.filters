@@ -158,4 +158,21 @@
       <Filter>Исходные файлы</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\x64\Debug\yellow.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\x64\Debug\ammo.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\x64\Debug\green.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\x64\Debug\player.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\x64\Debug\red.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

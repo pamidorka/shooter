@@ -1,6 +1,10 @@
 
 #include "enemy.hpp"
 
+Enemy::Enemy(const char* name) {
+    texture.loadFromFile(name);
+}
+
 bool Enemy::InEnemy(Ammo bullet) {
     return model.getGlobalBounds().intersects(bullet.GetModel().getGlobalBounds());
 }
@@ -15,6 +19,7 @@ int Enemy::GetDamage() {
 
 void Enemy::Draw(sf::RenderWindow* window) {
     model.setPosition(position);
+    model.setTexture(&texture);
 	window->draw(model);
 }
 
